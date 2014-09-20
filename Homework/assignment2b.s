@@ -4,7 +4,7 @@ _start:
 	mov r2, #111   /* a */
 	mov r3, #5     /* b */
 	mov r4, #0     /*counter*/
-	mov r5, #0     /*flag not set*/
+	mov r5, #1     /*flag set*/
 
 	cmp r2, r3
 	blt output
