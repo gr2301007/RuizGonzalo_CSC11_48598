@@ -7,7 +7,7 @@
 .text
 .global main
 main:
-	mov r2, #2222  /* a */
+	mov r2, #222   /* a */
 	mov r3, #5     /* b */
 	mov r4, #0     /*counter*/
 	mov r5, #0     /*flag not set*/
