@@ -18,12 +18,30 @@ main:
 	
 	cmp r2, r3
 	blt output
-	
+
+scale:
+	mov r6, #1
+	mul r7, r3, r6
+	mul r9, r7, r8
+	cmp r2, r9
+	bgt shift_scale
+	b repeat
+
+shift_scale:
+	mul r10, r6, r8
+	mov r6, r10
+	mul r7, r3, r6
+	mul r9, r7, r8
+	cmp r2, r9
+	bgt shift_scale
+
 repeat:
-	sub r2, r2, r3
-	add r4, r4, #1
-	cmp r2, r3
+	sub r2, r2, r7
+	add r4, r4, r6
+	cmp r2, r7
 	bge repeat
+	cmp r6, #1
+	bgt scale
 	
 output:
 	mov r0, r4
@@ -38,5 +56,4 @@ swap:
 	b end
 
 end:
-	mov r7, #1
-	swi 0
+	bx lr
