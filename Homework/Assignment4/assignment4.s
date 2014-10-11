@@ -22,7 +22,7 @@ scale_left:
 	mov r4, r4, lsl#1
 	mov r5, r5, lsl#1
 	cmp r1, r5
-	bge shift_left
+	bge scale_left
 	mov r4, r4, lsr#1
 	mov r5, r5, lsr#1
 	
