@@ -1,6 +1,6 @@
 /*
 	Gonzalo Ruiz
-	9/29/14
+	10/13/14
 	Assignment 4
 */
  
@@ -12,7 +12,7 @@ main:
 	mov r4, #1     /*scale factor*/
 	mov r5, r3     /*subtraction factor*/
 	mov r0, #0     /*counter*/
-	mov r1, #r2    /*remainder*/
+	mov r1, r2     /*remainder*/
 	mov r6, #0     /*flag not set*/
 	
 	cmp r2, r3
