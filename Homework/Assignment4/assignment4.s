@@ -80,7 +80,7 @@ scale_right:
 	cmp r1, r5
 	blt scale_right
 	cmp r4, #1
-	bgt add_sub
+	bge add_sub
 	
 output:
 	mov r3, r0                       /* r3 ? r0 */
