@@ -1,3 +1,6 @@
+
+/* Assignment 5*/
+
 .data 
    
 message1: .asciz "Enter numerator and denominator: " 
@@ -7,8 +10,6 @@ message3: .asciz "a / b = %d and a mod b = %d\n"
   
 .text 
 
- 
- 
 scaleRight: 
  	push {lr}             
  	loop:     
@@ -21,33 +22,33 @@ scaleRight:
   
  
 addSub: 
- 	push {lr}       /* Push lr onto the stack */ 
+ 	push {lr} 
  	loop2: 
  		add r0,r0,r3 
  		sub r1,r1,r2 
  		bl scaleRight 
  	cmp r3,#1 
  	bge loop2 
-     pop {lr}       /* Pop lr from the stack */ 
-     bx lr          /* Leave addSub */ 
+     pop {lr} 
+     bx lr 
 
  
 scaleLeft: 
- 	push {lr}             /* Push lr onto the stack */ 
- 	doWhile_r1_ge_r2:     /* Scale left till overshoot with remainder */ 
- 		mov r3,r3,LSL #1  /* scale factor */ 
- 		mov r2,r2,LSL #1  /* subtraction factor */ 
+ 	push {lr}  
+ 	loop3:   
+ 		mov r3,r3,LSL #1 
+ 		mov r2,r2,LSL #1 
  		cmp r1,r2 
- 	bge doWhile_r1_ge_r2  /* End loop at overshoot */ 
- 	mov r3,r3,ASR #1      /* Scale factor back */ 
- 	mov r2,r2,ASR #1      /* Scale subtraction factor back */ 
- 	pop {lr}              /* Pop lr from the stack */ 
-     bx lr                 /* Leave addSub */ 
+ 	bge loop3 
+ 	mov r3,r3,ASR #1  
+ 	mov r2,r2,ASR #1   
+ 	pop {lr}  
+     bx lr  
   
  
 divMod: 
- 	push {lr}       /* Push lr onto the stack */ 
- 	/* Determine the quotient and remainder */ 
+ 	push {lr}  
+ 	
  	mov r0,#0 
  	mov r3,#1 
  	cmp r1,r2 
@@ -55,8 +56,8 @@ divMod:
  		bl scaleLeft 
  		bl addSub 
  	end: 
- 	pop {lr}       /* Pop lr from the stack */ 
-     bx lr          /* Leave addSub */ 
+ 	pop {lr}  
+     bx lr 
 
  	 
 .globl main 
