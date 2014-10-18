@@ -113,4 +113,3 @@ address_of_return : .word return
 /* External */
 .global printf
 .global scanf
-
