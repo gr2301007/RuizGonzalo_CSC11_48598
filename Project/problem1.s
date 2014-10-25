@@ -70,7 +70,7 @@ main:
 	mov r8, #3
 	mul r9, r8, r1
 	mul r10, r2, r9
-	add r3, r3, r9
+	add r3, r3, r10
 	
      output:
      mov r1,r3
