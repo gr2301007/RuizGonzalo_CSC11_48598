@@ -52,7 +52,7 @@ main:
 
 	mov r4, #20
 	mul r3, r2, r4
-	sub r1, r1 #20
+	sub r1, r1, #20
 	mov r5, #2
 	mul r6, r1, r5
 	mul r7, r2, r6
