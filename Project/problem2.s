@@ -6,7 +6,7 @@
 message1: .asciz "\nIn problem 2\n\n"
 message2: .asciz "Enter package(a,b,c) and hours: "
 message3: .asciz "Monthly bill is: %d\n\n"
-format:   .asciz "%d %d"
+format:   .asciz "%c %d"
   
 .text 
 
