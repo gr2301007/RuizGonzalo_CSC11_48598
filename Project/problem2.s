@@ -6,7 +6,7 @@
 message1: .asciz "\nIn problem 2\n\n"
 message2: .asciz "Enter package(a,b,c) and hours: "
 message3: .asciz "Monthly bill is: %d\n\n"
-format:   .asciz "%c %d" 
+format:   .asciz "%d %d"
   
 .text 
 
@@ -39,10 +39,6 @@ main:
      bl printf                    /* Call printf */
      b end
    
-     invalid_hours:
-     ldr r0, address_of_message4  /* Set &message4 as the first parameter of printf */ 
-     bl printf                    /* Call printf */ 
-     
      end:
      add sp, sp, #8               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
