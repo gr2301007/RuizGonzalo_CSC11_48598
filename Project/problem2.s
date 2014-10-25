@@ -42,15 +42,42 @@ main:
      beq pckgc
 
      pckga:
-	mov r1, #1
+	cmp r2, #11
+	ble firsta
+	bgt seconda
+
+	firsta:
+	   mov r3, #30 
+	   b output
+
+	seconda:
+	   cmp r2, #22
+	   bgt thirda
+
+	   mov r3, #30
+	   sub r2, r2, #11
+	   mov r4, #3
+	   mul r5, r4, r2
+	   add r3, r3, r5
+	   b output 
+
+	thirda:
+	   mov r3, #30
+	   mov r4, #3
+	   mov r5, #11
+	   mul r6, r4, r5
+	   add r3, r3, r6
+	   b output
 
      pckgb:
-	mov r1, #2
+	mov r3, #2
+	b output
 
      pckgc:
-	mov r1, #3
+	mov r3, #3
 	
      output:
+     mov r1, r3
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
