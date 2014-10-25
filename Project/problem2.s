@@ -32,17 +32,32 @@ main:
      ldr r1, [r1]                 /* Load the character package read by scanf into r1 */ 
      ldr r2, [sp]		  /* Load the integer hours read by scanf into r2 */ 
      
-     
+     cmp r1, #97
+     beq pckga
+
+     cmp r1, #98
+     beq pckgb
+
+     cmp r1, #99
+     beq pckgc
+
+     pckga:
+	mov r1, #1
+
+     pckgb:
+	mov r1, #2
+
+     pckgc:
+	mov r1, #3
 	
      output:
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
-     b end
    
      end:
      add sp, sp, #8               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-     bx lr                        /* Leave main */ 
+     bx lr                        /* Leave main */
    
 address_of_message1: .word message1 
 address_of_message2: .word message2 
