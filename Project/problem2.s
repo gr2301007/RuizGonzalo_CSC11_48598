@@ -84,7 +84,7 @@ main:
 
 	secondb:
 	   cmp r2, #44
-	   bgt thirda
+	   bgt thirdb
 
 	   mov r3, #35
 	   sub r2, r2, #22
@@ -117,7 +117,7 @@ main:
 
 	secondc:
 	   cmp r2, #66
-	   bgt thirda
+	   bgt thirdc
 
 	   mov r3, #40
 	   sub r2, r2, #33
