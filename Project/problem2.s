@@ -67,15 +67,73 @@ main:
 	   mov r5, #11
 	   mul r6, r4, r5
 	   add r3, r3, r6
+	   sub r2, r2, #22
+	   mov r7, #6
+	   mul r8, r7, r2
+	   add r3, r3, r8
 	   b output
 
      pckgb:
-	mov r3, #2
-	b output
+	cmp r2, #22
+	ble firstb
+	bgt secondb
+
+	firstb:
+	   mov r3, #35 
+	   b output
+
+	secondb:
+	   cmp r2, #44
+	   bgt thirda
+
+	   mov r3, #35
+	   sub r2, r2, #22
+	   mov r4, #2
+	   mul r5, r4, r2
+	   add r3, r3, r5
+	   b output 
+
+	thirdb:
+	   mov r3, #35
+	   mov r4, #2
+	   mov r5, #22
+	   mul r6, r4, r5
+	   add r3, r3, r6
+	   sub r2, r2, #44
+	   mov r7, #4
+	   mul r8, r7, r2
+	   add r3, r3, r8
+	   b output
+	
 
      pckgc:
-	mov r3, #3
-	
+	cmp r2, #33
+	ble firsta
+	bgt seconda
+
+	firsta:
+	   mov r3, #40 
+	   b output
+
+	seconda:
+	   cmp r2, #66
+	   bgt thirda
+
+	   mov r3, #40
+	   sub r2, r2, #33
+	   mov r4, #3
+	   mul r5, r4, r2
+	   add r3, r3, r5
+	   b output 
+
+	thirda:
+	   mov r3, #40
+	   add r3, r3, #33
+	   sub r2, r2, #66
+	   mov r4, #2
+	   mul r5, r4, r2
+	   add r3, r3, r5
+	   
      output:
      mov r1, r3
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
