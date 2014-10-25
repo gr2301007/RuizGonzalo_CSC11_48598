@@ -108,14 +108,14 @@ main:
 
      pckgc:
 	cmp r2, #33
-	ble firsta
-	bgt seconda
+	ble firstc
+	bgt secondc
 
-	firsta:
+	firstc:
 	   mov r3, #40 
 	   b output
 
-	seconda:
+	secondc:
 	   cmp r2, #66
 	   bgt thirda
 
@@ -126,7 +126,7 @@ main:
 	   add r3, r3, r5
 	   b output 
 
-	thirda:
+	thirdc:
 	   mov r3, #40
 	   add r3, r3, #33
 	   sub r2, r2, #66
