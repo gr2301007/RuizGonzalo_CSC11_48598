@@ -32,7 +32,7 @@ main:
      mov r1, #0
      mov r2, #1
      mov r3, #0
-     mov r4, #1
+     mov r4, #0
 
      loop:
 	cmp r4, #1
