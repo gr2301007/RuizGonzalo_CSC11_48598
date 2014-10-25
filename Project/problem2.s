@@ -121,9 +121,7 @@ main:
 
 	   mov r3, #40
 	   sub r2, r2, #33
-	   mov r4, #3
-	   mul r5, r4, r2
-	   add r3, r3, r5
+	   add r3, r3, r2
 	   b output 
 
 	thirdc:
