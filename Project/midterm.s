@@ -5,13 +5,10 @@
 
 .data 
    
-message1: .asciz "Type 1 for problem 1\n
-		  Type 2 for problem 2\n
-		  Type 3 for problem 3\n
-		  Type 4 to exit: "
+message1: .asciz "Type 1 for problem 1\nType 2 for problem 2\nType 3 for problem 3\nType 4 to exit: "
 
 format:   .asciz "%d" 
-message2: .asciz "You typed %d to exit the program"
+message2: .asciz "You typed %d to exit the program\n"
  
 .text 
 
