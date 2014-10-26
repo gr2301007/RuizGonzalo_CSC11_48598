@@ -1,5 +1,8 @@
 
-/* Problem 3*/
+/* 
+   Gonzalo Ruiz
+   Midterm
+   Problem 3 */
 
 .data 
    
@@ -10,9 +13,9 @@ format:   .asciz "%d"
   
 .text 
 
-.globl main 
+.globl problem3 
 
-main: 
+problem3: 
      str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
      sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
      
@@ -29,26 +32,26 @@ main:
    
      ldr r0, [sp]		  /* Load the integer read by scanf into r0 */ 
      
-     mov r1, #0
-     mov r2, #1
-     mov r3, #0
-     mov r4, #0
+     mov r1, #0			/* first  = 0 */
+     mov r2, #1			/* second = 1 */
+     mov r3, #0			/* next = 0 */
+     mov r4, #0			/* i = 0 */
 
      loop:
-	cmp r4, #1
+	cmp r4, #1		/* if i <= 1 go to less_one */
 	ble less_one
 
-	add r3, r1, r2
-	mov r1, r2
-	mov r2, r3
+	add r3, r1, r2		/* next = first + second */
+	mov r1, r2		/* first = second */
+	mov r2, r3		/* second = next */
 	b test
 
 	less_one:
-	   mov r3, r4
+	   mov r3, r4		/* next = i */
 
 	test:
-	   add r4, #1
-	   cmp r4, r0
+	   add r4, #1		/* i++ */
+	   cmp r4, r0		/* while (i < n) */
 	   blt loop
 	
      
@@ -58,7 +61,7 @@ main:
     
      add sp, sp, #4               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-     bx lr                        /* Leave main */ 
+     bx lr                        /* Leave problem3 */ 
    
 address_of_message1: .word message1 
 address_of_message2: .word message2 
