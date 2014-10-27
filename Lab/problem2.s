@@ -143,7 +143,7 @@ main:
      end:
      add sp, sp, #8               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-     bx lr                        /* Leave problem2 */
+     bx lr                        /* Leave main */
    
 address_of_message1: .word message1 
 address_of_message2: .word message2 
