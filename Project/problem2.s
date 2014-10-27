@@ -7,15 +7,15 @@
 .data 
    
 message1: .asciz "\nIn problem 2\n\n"
-message2: .asciz "Enter hours and package(a,b,c): "
+message2: .asciz "Enter package(a,b,c) and hours: "
 message3: .asciz "Monthly bill is: %d\n\n"
 format:   .asciz "%d %c"
   
 .text 
 
-.globl problem2
+.globl main
 
-problem2: 
+main: 
      str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
      sub sp, sp, #8               /* Make room for two 4 byte integers in the stack */ 
      
@@ -32,20 +32,20 @@ problem2:
      bl scanf                     /* Call scanf */ 
    
      add r1, sp, #4               /* Place sp+4 -> r1 */ 
-     ldr r1, [r1]                 /* Load the integer hours read by scanf into r1 */ 
-     ldr r2, [sp]		  /* Load the character package read by scanf into r2 */ 
+     ldr r1, [sp]                 /* Load the character package read by scanf into r1 */ 
+     ldr r2, [r1]		  /* Load the integer hours read by scanf into r2 */ 
      
-     cmp r2, #97		/* 97  = a */
+     cmp r1, #97		/* 97  = a */
      beq pckga
 
-     cmp r2, #98		/* 98  = b */
+     cmp r1, #98		/* 98  = b */
      beq pckgb
 
-     cmp r2, #99		/* 99  = c */
+     cmp r1, #99		/* 99  = c */
      beq pckgc
 
      pckga:
-	cmp r1, #11		/* If hours <= 11 go to first option else go to second*/
+	cmp r2, #11		/* If hours <= 11 go to first option else go to second*/
 	ble firsta
 	bgt seconda
 
@@ -54,13 +54,13 @@ problem2:
 	   b output
 
 	seconda:
-	   cmp r1, #22		/* If hours > 22 go to third option*/
+	   cmp r2, #22		/* If hours > 22 go to third option*/
 	   bgt thirda
 
 	   mov r3, #30
-	   sub r1, r1, #11
+	   sub r2, r2, #11
 	   mov r4, #3
-	   mul r5, r4, r1
+	   mul r5, r4, r2
 	   add r3, r3, r5	/* bill = 30 + 3 * (h - 11) */
 	   b output 
 
@@ -70,14 +70,14 @@ problem2:
 	   mov r5, #11
 	   mul r6, r4, r5
 	   add r3, r3, r6	/* bill = 30 + 3 * 11 */
-	   sub r1, r1, #22
+	   sub r2, r2, #22
 	   mov r7, #6
-	   mul r8, r7, r1
+	   mul r8, r7, r2
 	   add r3, r3, r8	/* bill += 6 * (h - 22) */
 	   b output
 
      pckgb:
-	cmp r1, #22		/* If hours <= 22 go to first option else go to second*/
+	cmp r2, #22		/* If hours <= 22 go to first option else go to second*/
 	ble firstb
 	bgt secondb
 
@@ -86,13 +86,13 @@ problem2:
 	   b output
 
 	secondb:
-	   cmp r1, #44		/* If hours > 44 go to third option*/
+	   cmp r2, #44		/* If hours > 44 go to third option*/
 	   bgt thirdb
 
 	   mov r3, #35
-	   sub r1, r1, #22
+	   sub r2, r2, #22
 	   mov r4, #2
-	   mul r5, r4, r1
+	   mul r5, r4, r2
 	   add r3, r3, r5	/* bill = 35 + 2 * (h - 22) */
 	   b output 
 
@@ -102,15 +102,15 @@ problem2:
 	   mov r5, #22
 	   mul r6, r4, r5
 	   add r3, r3, r6	/* bill = 35 + 2 * 22 */
-	   sub r1, r1, #44
+	   sub r2, r2, #44
 	   mov r7, #4
-	   mul r8, r7, r1
+	   mul r8, r7, r2
 	   add r3, r3, r8	/* bill += 4 * (h - 44) */
 	   b output
 	
 
      pckgc:
-	cmp r1, #33		/* If hours <= 33 go to first option else go to second*/
+	cmp r2, #33		/* If hours <= 33 go to first option else go to second*/
 	ble firstc
 	bgt secondc
 
@@ -119,20 +119,20 @@ problem2:
 	   b output
 
 	secondc:
-	   cmp r1, #66		/* If hours > 66 go to third option*/
+	   cmp r2, #66		/* If hours > 66 go to third option*/
 	   bgt thirdc
 
 	   mov r3, #40
-	   sub r1, r1, #33
-	   add r3, r3, r1	/* bill = 40 + (h - 33) */
+	   sub r2, r2, #33
+	   add r3, r3, r2	/* bill = 40 + (h - 33) */
 	   b output 
 
 	thirdc:
 	   mov r3, #40
 	   add r3, r3, #33	/*  bill = 40 + 33 */
-	   sub r1, r1, #66
+	   sub r2, r2, #66
 	   mov r4, #2
-	   mul r5, r4, r1
+	   mul r5, r4, r2
 	   add r3, r3, r5	/* bill += 2 * (h - 66) */
 	   
      output:
@@ -143,7 +143,7 @@ problem2:
      end:
      add sp, sp, #8               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-     bx lr                        /* Leave problem2 */
+     bx lr                        /* Leave main */
    
 address_of_message1: .word message1 
 address_of_message2: .word message2 
