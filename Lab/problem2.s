@@ -13,9 +13,9 @@ format:   .asciz "%c %d"
   
 .text 
 
-.globl problem2
+.globl main
 
-problem2: 
+main: 
      str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
      sub sp, sp, #8               /* Make room for two 4 byte integers in the stack */ 
      
