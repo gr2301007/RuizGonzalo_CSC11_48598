@@ -26,4 +26,4 @@ main:
      
    
 address_of_message1: .word message1 
-
+. global printf
