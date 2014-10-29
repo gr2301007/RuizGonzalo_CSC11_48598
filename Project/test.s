@@ -3,32 +3,30 @@
    Gonzalo Ruiz
    project test */
 
+
+
+/* Assignment 5*/
+
 .data 
    
-.balign 4
-message1: .asciz "Hello/n"
+message1: .asciz "Hello\n" 
 
+  
+.text 
 
- .text 
-
-
-.global main
+ 	 
+.globl main 
 
 main: 
-     ldr r1, address_of_return        /* r1 ? &address_of_return */
-     str lr, [r1]  
-
-     /*mov r1, #97*/
-   
-     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
-     bl printf                    /* Call printf */
-
-     ldr lr, address_of_return        /* lr ? &address_of_return */
-     ldr lr, [lr]   
-
-     bx lr                        /* Leave main */ 
-	
+     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
      
+ 	 
+     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+     bl printf                    /* Call printf */ 
+   
+    
+     ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
+     bx lr                        /* Leave main */ 
    
 address_of_message1: .word message1 
-.global printf
+
