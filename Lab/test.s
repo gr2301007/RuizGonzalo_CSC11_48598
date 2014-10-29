@@ -26,5 +26,4 @@ main:
      
    
 address_of_message1: .word message1 
-address_of_message2: .word message2 
-address_of_format:   .word format 
+
