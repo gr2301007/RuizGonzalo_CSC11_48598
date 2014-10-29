@@ -5,7 +5,7 @@
 
 .data 
    
-message1: .asciz " | %c | %c | %c "
+message1: .asciz "Hello/n"
 
 
  .text 
@@ -15,9 +15,8 @@ message1: .asciz " | %c | %c | %c "
 
 main: 
 
-     mov r1, #97
-     mov r2, #98
-     mov r3, #99
+     /*mov r1, #97*/
+   
      ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
