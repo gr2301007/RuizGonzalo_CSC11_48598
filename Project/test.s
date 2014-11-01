@@ -15,13 +15,13 @@ main:
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
 
-    mov r4, #70
-    mov r5, #71
-    mov r6, #72
-    mov r7, #73
-    mov r8, #74
-    mov r2, #5			 /*length of the word*/
-    mov r3, #0
+    mov r4, #99
+    mov r5, #104
+    mov r6, #105
+    mov r7, #110
+    mov r8, #97
+    mov r9, #5			 /*length of the word*/
+    mov r10, #0
 
     loop:
     ldr r0, address_of_format    /* Set &format as the first parameter of scanf */
@@ -64,7 +64,7 @@ main:
 	b output
 
     wrong:
-	add r3, r3, #1
+	add r10, r10, #1
 
     output: 
     mov r1, r4
@@ -87,7 +87,7 @@ main:
     ldr r0, address_of_message1
     bl printf 
 
-    sub r2, r2, #1
+    sub r9, r9, #1
     cmp r2, #0
     bne loop
     
