@@ -7,7 +7,7 @@
 
 .data 
 
-newline: .asciz "\n   
+newline: .asciz "\n" 
 message1: .asciz "%c " 
 format:   .asciz "%c" 
 
