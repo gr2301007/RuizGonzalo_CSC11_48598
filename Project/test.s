@@ -131,6 +131,7 @@ main:
     
     ldr r0, address_of_message8
     bl printf
+    b end
 
     lose:
     ldr r0, address_of_message7
