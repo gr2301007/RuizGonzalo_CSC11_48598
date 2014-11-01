@@ -72,7 +72,7 @@ main:
     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
     bl printf                    /* Call printf */ 
 
-    mov r1, #66
+    mov r1, r2
     ldr r0, address_of_message1
     bl printf 
 
