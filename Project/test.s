@@ -115,6 +115,9 @@ main:
 	b test
 
     repeated:
+	ldr r0, address_of_message9
+        bl printf
+	b loop
 	
 
     wrong:
@@ -130,9 +133,8 @@ main:
         bl printf 
 
     test:
-    
-    cmp r9, #0
-    bne loop
+       cmp r9, #0
+       bne loop
     
     ldr r0, address_of_message8
     bl printf
@@ -155,4 +157,5 @@ address_of_message5: .word message5
 address_of_message6: .word message6
 address_of_message7: .word message7
 address_of_message8: .word message8
+address_of_message9: .word message9
 address_of_format:   .word format
