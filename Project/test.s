@@ -82,9 +82,6 @@ main:
     ldr r0, address_of_message1
     bl printf 
 
-    ldr r0, adress_of_newline
-    bl printf
-
     sub r7, r7, #1
     cmp r7, #0
     bne loop
