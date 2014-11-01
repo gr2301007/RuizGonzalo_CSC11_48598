@@ -9,7 +9,7 @@
 
 .data 
    
-message1: .asciz "%d\n" 
+message1: .asciz "%c " 
 format:   .asciz "%c" 
 
   
@@ -28,9 +28,17 @@ main:
     bl scanf                     /* Call scanf */
     ldr r1, [sp]		 /* Load integer read into r1*/
      
+    mov r1, #67
     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
-     bl printf                    /* Call printf */ 
-   
+    bl printf                    /* Call printf */ 
+    mov r1, #104
+    bl printf 
+    mov r1, #105
+    bl printf 
+    mov r1, #110
+    bl printf 
+    mov r1, #97
+    bl printf 
     
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
