@@ -7,8 +7,8 @@
 message1: .asciz "%c "
 message2: .asciz "Welcome to hangman...Guess a country name\n"
 message3: .asciz "You have 5 tries to guess the word\n\n"
-message4: .asciz "Pick a letter: "
-message5: .asciz "That letter isn't in the word\n"
+message4: .asciz "\nPick a letter: "
+message5: .asciz "\nThat letter isn't in the word\n"
 message6: .asciz "You have %d guesses left\n"
 format:   .asciz " %c" 
 
@@ -34,6 +34,26 @@ main:
     bl printf 
     
     loop:
+    mov r1, r4
+    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    bl printf                    /* Call printf */ 
+
+    mov r1, r5
+    ldr r0, address_of_message1
+    bl printf 
+
+    mov r1, r6
+    ldr r0, address_of_message1
+    bl printf 
+
+    mov r1, r7
+    ldr r0, address_of_message1
+    bl printf 
+
+    mov r1, r8
+    ldr r0, address_of_message1
+    bl printf 
+    
     ldr r0, address_of_message4
     bl printf 
 
@@ -63,23 +83,23 @@ main:
     letter_c:
 	mov r4, r1
 	sub r9, r9, #1
-	b output
+	b test
     letter_h:
 	mov r5, r1
 	sub r9, r9, #1
-	b output
+	b test
     letter_i:
 	mov r6, r1
 	sub r9, r9, #1
-	b output
+	b test
     letter_n:
 	mov r7, r1
 	sub r9, r9, #1
-	b output
+	b test
     letter_a:
 	mov r8, r1
 	sub r9, r9, #1
-	b output
+	b test
 
     wrong:
 	sub r10, r10, #1
@@ -91,28 +111,7 @@ main:
         ldr r0, address_of_message6
         bl printf 
 
-
-    output: 
-    mov r1, r4
-    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
-    bl printf                    /* Call printf */ 
-
-    mov r1, r5
-    ldr r0, address_of_message1
-    bl printf 
-
-    mov r1, r6
-    ldr r0, address_of_message1
-    bl printf 
-
-    mov r1, r7
-    ldr r0, address_of_message1
-    bl printf 
-
-    mov r1, r8
-    ldr r0, address_of_message1
-    bl printf 
-
+    test:
     cmp r9, #0
     bne loop
     
