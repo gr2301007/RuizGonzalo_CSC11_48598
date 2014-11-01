@@ -22,6 +22,7 @@ main:
     mov r5, #95
     mov r6, #95
     mov r7, #5			 /*length of the word*/
+    mov r8, #0
 
     loop:
     ldr r0, address_of_format    /* Set &format as the first parameter of scanf */
@@ -44,6 +45,8 @@ main:
 
     cmp r1, #97
     beq letter_a
+    
+    b wrong
 
     letter_c:
 	mov r2, r1
@@ -60,6 +63,9 @@ main:
     letter_a:
 	mov r6, r1
 	b output
+
+    wrong:
+	add r8, r8, #1
 
     output: 
     mov r1, r2
