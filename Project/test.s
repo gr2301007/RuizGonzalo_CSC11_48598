@@ -1,10 +1,15 @@
 /* 
    Gonzalo Ruiz
-   project test */
+   project 1 */
 
 .data 
 
-message1: .asciz "%c " 
+message1: .asciz "%c "
+message2: .asciz "Welcome to hangman...Guess a country name\n"
+message3: .asciz "You have 5 tries to guess the word\n\n"
+message4: .asciz "Pick a letter: "
+message5: .asciz "That letter isn't in the word\n"
+message6: .asciz "You have %d guesses left\n"
 format:   .asciz " %c" 
 
 .text 
@@ -13,17 +18,25 @@ format:   .asciz " %c"
 
 main: 
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
-    sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
+    sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
-    mov r4, #95
+    mov r4, #95			 /* Cover word with "_" ascii code 95 */
     mov r5, #95
     mov r6, #95
     mov r7, #95
     mov r8, #95
     mov r9, #5			 /*length of the word*/
-    mov r10, #0
+    mov r10, #5			 /*Guesses left */
 
+    ldr r0, address_of_message2
+    bl printf
+    ldr r0, address_of_message3
+    bl printf 
+    
     loop:
+    ldr r0, address_of_message4
+    bl printf 
+
     ldr r0, address_of_format    /* Set &format as the first parameter of scanf */
     mov r1, sp                   /* Set the top of the stack as the second parameter */
                                  /* of scanf */
@@ -49,22 +62,35 @@ main:
 
     letter_c:
 	mov r4, r1
+	sub r9, r9, #1
 	b output
     letter_h:
 	mov r5, r1
+	sub r9, r9, #1
 	b output
     letter_i:
 	mov r6, r1
+	sub r9, r9, #1
 	b output
     letter_n:
 	mov r7, r1
+	sub r9, r9, #1
 	b output
     letter_a:
 	mov r8, r1
+	sub r9, r9, #1
 	b output
 
     wrong:
-	add r10, r10, #1
+	sub r10, r10, #1
+
+        ldr r0, address_of_message5
+        bl printf 
+
+        mov r1, r10
+        ldr r0, address_of_message6
+        bl printf 
+
 
     output: 
     mov r1, r4
@@ -87,7 +113,6 @@ main:
     ldr r0, address_of_message1
     bl printf 
 
-    sub r9, r9, #1
     cmp r9, #0
     bne loop
     
@@ -95,5 +120,8 @@ main:
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave main */ 
    
-address_of_message1: .word message1 
+address_of_message1: .word message1
+address_of_message2: .word message2 
+address_of_message3: .word message3
+address_of_message4: .word message4
 address_of_format:   .word format
