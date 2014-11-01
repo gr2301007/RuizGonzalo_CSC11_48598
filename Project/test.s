@@ -31,13 +31,21 @@ main:
     mov r1, #67
     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
     bl printf                    /* Call printf */ 
+
     mov r1, #104
+    ldr r0, address_of_message1
     bl printf 
+
     mov r1, #105
+    ldr r0, address_of_message1
     bl printf 
+
     mov r1, #110
+    ldr r0, address_of_message1
     bl printf 
+
     mov r1, #97
+    ldr r0, address_of_message1
     bl printf 
     
      add sp, sp, #4              /* Discard the integer read by scanf */     
