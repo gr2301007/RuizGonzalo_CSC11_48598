@@ -15,11 +15,11 @@ main:
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
 
-    mov r4, #99
-    mov r5, #104
-    mov r6, #105
-    mov r7, #110
-    mov r8, #97
+    mov r4, #95
+    mov r5, #95
+    mov r6, #95
+    mov r7, #95
+    mov r8, #95
     mov r9, #5			 /*length of the word*/
     mov r10, #0
 
