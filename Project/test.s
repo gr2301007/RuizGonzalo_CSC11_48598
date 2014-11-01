@@ -88,7 +88,7 @@ main:
     bl printf 
 
     sub r9, r9, #1
-    cmp r2, #0
+    cmp r9, #0
     bne loop
     
      add sp, sp, #4              /* Discard the integer read by scanf */     
