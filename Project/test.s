@@ -12,6 +12,7 @@ message5: .asciz "\nThat letter isn't in the word\n"
 message6: .asciz "You have %d guesses left\n"
 message7: .asciz "Sorry you've been hanged\n"
 message8: .asciz "Congratulations you win!\n"
+message9: .asciz "\nYou already used that letter\n"
 format:   .asciz " %c" 
 
 .text 
@@ -84,37 +85,42 @@ main:
 
     letter_c:
 	cmp r1, r4
-	beq wrong
+	beq repeated
 	mov r4, r1
 	sub r9, r9, #1
 	b test
     letter_h:
 	cmp r1, r5
-	beq wrong
+	beq repeated
 	mov r5, r1
 	sub r9, r9, #1
 	b test
     letter_i:
 	cmp r1, r6
-	beq wrong
+	beq repeated
 	mov r6, r1
 	sub r9, r9, #1
 	b test
     letter_n:
 	cmp r1, r7
-	beq wrong
+	beq repeated
 	mov r7, r1
 	sub r9, r9, #1
 	b test
     letter_a:
 	cmp r1, r8
-	beq wrong
+	beq repeated
 	mov r8, r1
 	sub r9, r9, #1
 	b test
 
+    repeated:
+	
+
     wrong:
 	sub r10, r10, #1
+        cmp r10, #0
+        beq lose
 
         ldr r0, address_of_message5
         bl printf 
@@ -124,8 +130,7 @@ main:
         bl printf 
 
     test:
-    cmp r10, #0
-    beq lose
+    
     cmp r9, #0
     bne loop
     
