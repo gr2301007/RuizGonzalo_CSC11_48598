@@ -68,11 +68,11 @@ main:
 	add r8, r8, #1 */
 
     output: 
-    mov r1, r2
+    mov r1, #65
     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
     bl printf                    /* Call printf */ 
 
-    mov r1, r3
+    mov r1, #66
     ldr r0, address_of_message1
     bl printf 
 
