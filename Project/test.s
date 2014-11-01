@@ -124,4 +124,6 @@ address_of_message1: .word message1
 address_of_message2: .word message2 
 address_of_message3: .word message3
 address_of_message4: .word message4
+address_of_message5: .word message5
+address_of_message5: .word message6
 address_of_format:   .word format
