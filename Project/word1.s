@@ -19,7 +19,7 @@ main:
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
-    mov r4, #95			 /* Cover word with "_" ascii code 95 */
+    mov r4, #95			 /* Cover word with "_" ascii code = 95 */
     mov r5, #95
     mov r6, #95
     mov r7, #95
@@ -28,6 +28,7 @@ main:
     mov r10, #5			 /*Guesses left */
 
     loop:
+	/* Print the word one character at a time (no arrays yet) */
        mov r1, r4
        ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
        bl printf                    /* Call printf */ 
@@ -55,38 +56,38 @@ main:
        mov r1, sp                   /* Set the top of the stack as the second parameter */
                                     /* of scanf */
        bl scanf                     /* Call scanf */
-       ldr r1, [sp]		    /* Load character read into r1*/
+       ldr r1, [sp]		    /* Load character read into r1 */
 
-       cmp r1, #99
+       cmp r1, #99		    /* letter c, ascii code = 99 */
        beq letter_c
 
-       cmp r1, #104
+       cmp r1, #104		    /* letter h, ascii code = 104 */
        beq letter_h
 
-       cmp r1, #105
+       cmp r1, #105		    /* letter i, ascii code = 105 */
        beq letter_i
 
-       cmp r1, #110
+       cmp r1, #110		    /* letter n, ascii code = 110 */
        beq letter_n
 
-       cmp r1, #97
+       cmp r1, #97		    /* letter a, ascii code = 97 */
        beq letter_a
     
-       b wrong
+       b wrong			    /* If none of this, the letter is not in the word */
 
     letter_c:
-	cmp r1, r4
+	cmp r1, r4		    /* check if letter is already used in the word */
 	beq repeated
-	mov r4, r1
-	sub r9, r9, #1
-	b test
+	mov r4, r1		    /* replace '_' with the correct letter */
+	sub r9, r9, #1		    /* decrease size of word by one (letter is correct) */
+	b test			    /* test the condition to repeat the loop */
     letter_h:
 	cmp r1, r5
 	beq repeated
 	mov r5, r1
 	sub r9, r9, #1
 	b test
-    letter_i:
+    letter_i:			    /* do this for every single character in the word */
 	cmp r1, r6
 	beq repeated
 	mov r6, r1
@@ -105,15 +106,15 @@ main:
 	sub r9, r9, #1
 	b test
 
-    repeated:
+    repeated:				/* letter already used */
 	ldr r0, address_of_message5
         bl printf
 	b loop
 	
 
     wrong:
-	sub r10, r10, #1
-        cmp r10, #0
+	sub r10, r10, #1		/* if wrong decrease guesses left by one*/
+        cmp r10, #0			/* if gueses left = 0, user loses */
         beq lose
 
         ldr r0, address_of_message3
@@ -124,19 +125,19 @@ main:
         bl printf 
 
     test:
-       cmp r9, #0
+       cmp r9, #0		/* if size of word = 0, no more letters to guess (win) */
        bne loop
     
-    mov r0, #0
+    mov r0, #0			/* if win, return 0 */
     b end
 
     lose:
-    mov r0, #1
+    mov r0, #1			/* if lose return 1 */
     
     end:
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
-     bx lr                       /* Leave main */ 
+     bx lr                       /* Leave word1 */ 
    
 address_of_message1: .word message1
 address_of_message2: .word message2 
