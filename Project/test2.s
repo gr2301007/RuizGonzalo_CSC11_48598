@@ -37,6 +37,26 @@ main:
     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
     bl printf  
 
+     mov r1, r5
+    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    bl printf  
+
+     mov r1, r5
+    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    bl printf  
+
+     mov r1, r5
+    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    bl printf  
+
+     mov r1, r5
+    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    bl printf  
+
+     mov r1, r5
+    ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    bl printf  
+
    
     
      add sp, sp, #4              /* Discard the integer read by scanf */     
