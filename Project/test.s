@@ -30,7 +30,7 @@ main:
     bl scanf                     /* Call scanf */
     ldr r1, [sp]		 /* Load character read into r1*/
 
-    cmp r1, #67
+    cmp r1, #99
     beq letter_c
 
     cmp r1, #104
