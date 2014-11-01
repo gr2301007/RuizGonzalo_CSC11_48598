@@ -31,7 +31,7 @@ main:
     bl scanf                     /* Call scanf */
     ldr r1, [sp]		 /* Load character read into r1*/
 
-    cmp r1, #67
+    /* cmp r1, #67
     beq letter_c
 
     cmp r1, #104
@@ -65,7 +65,7 @@ main:
 	b output
 
     wrong:
-	add r8, r8, #1
+	add r8, r8, #1 */
 
     output: 
     mov r1, r2
