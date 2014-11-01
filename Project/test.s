@@ -10,8 +10,8 @@ message3: .asciz "You have 5 tries to guess the word\n"
 message4: .asciz "\n\nPick a letter: "
 message5: .asciz "\nThat letter isn't in the word\n"
 message6: .asciz "You have %d guesses left\n"
-message7: .asciz "Sorry you've been hanged"
-message8: .asciz "Congratulations you win!"
+message7: .asciz "Sorry you've been hanged\n"
+message8: .asciz "Congratulations you win!\n"
 format:   .asciz " %c" 
 
 .text 
@@ -63,7 +63,7 @@ main:
        mov r1, sp                   /* Set the top of the stack as the second parameter */
                                     /* of scanf */
        bl scanf                     /* Call scanf */
-       ldr r1, [sp]		 /* Load character read into r1*/
+       ldr r1, [sp]		    /* Load character read into r1*/
 
        cmp r1, #99
        beq letter_c
@@ -138,8 +138,8 @@ main:
     
     end:
      add sp, sp, #4              /* Discard the integer read by scanf */     
-     ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-     bx lr                        /* Leave main */ 
+     ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
+     bx lr                       /* Leave main */ 
    
 address_of_message1: .word message1
 address_of_message2: .word message2 
