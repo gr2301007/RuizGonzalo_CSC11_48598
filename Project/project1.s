@@ -23,8 +23,10 @@ main:
     bl time
     bl srand
     bl rand
-
-    mov r1, r0
+    mov r1, r0, ASR #1
+    mov r2, #5
+    bl divMod
+    add r1, #1
 
     ldr r0, address_of_format
     bl printf 
