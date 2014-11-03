@@ -111,10 +111,10 @@ address_of_message1: .word message1
 address_of_message2: .word message2 
 address_of_message3: .word message3
 address_of_message4: .word message4
-address_of_message5: .word message3
-address_of_message6: .word message4
-address_of_message7: .word message3
-address_of_message8: .word message4
-address_of_message9: .word message3
+address_of_message5: .word message5
+address_of_message6: .word message6
+address_of_message7: .word message7
+address_of_message8: .word message8
+address_of_message9: .word message9
 address_of_message10: .word message4
 
