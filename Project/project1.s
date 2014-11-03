@@ -39,19 +39,17 @@ main:
     bl divMod
     add r1, #1
 
-    mov r3, r1
-
+    mov r4, r1
     
-
-    cmp r3, #1
+    cmp r4, #1
     beq w1
-    cmp r3, #2
+    cmp r4, #2
     beq w2
-    cmp r3, #3
+    cmp r4, #3
     beq w3
-    cmp r3, #4
+    cmp r4, #4
     beq w4
-    cmp r3, #5
+    cmp r4, #5
     beq w5
 
     w1:
@@ -87,23 +85,23 @@ main:
     ldr r0, address_of_message5
     bl printf 
 
-    cmp r3, #1
+    cmp r4, #1
     beq o1
   
-    cmp r3, #2
+    cmp r4, #2
     beq o2
    
-    cmp r3, #3
+    cmp r4, #3
     beq o3
    
-    cmp r3, #4
+    cmp r4, #4
     beq o4
    
-    cmp r3, #5
+    cmp r4, #5
     beq o5
 
     o1:
-    ldr r0, address_of_message8
+    ldr r0, address_of_message6
     bl printf 
     b end
     o2:
