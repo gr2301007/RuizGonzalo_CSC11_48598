@@ -22,8 +22,6 @@ message10: .asciz "Cuba\n"
 .globl main 
 
 main: 
-    push {lr}
-
     ldr r0, address_of_message1
     bl printf 
 
@@ -105,7 +103,8 @@ main:
     
 
     end:
-    pop {lr}             /* Leave main */ 
+    bx lr            /* Leave main */
+     
    
 address_of_message1: .word message1
 address_of_message2: .word message2 
