@@ -103,7 +103,7 @@ main:
     beq o5
 
     o1:
-    ldr r0, address_of_message6
+    ldr r0, address_of_message8
     bl printf 
     b end
     o2:
