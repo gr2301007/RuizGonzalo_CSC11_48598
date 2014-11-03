@@ -39,7 +39,7 @@ main:
     bl divMod
     add r1, #1
 
-    mov r3, #4
+    mov r3, r1
 
     
 
