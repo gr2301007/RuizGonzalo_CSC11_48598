@@ -8,7 +8,7 @@ message1: .asciz "Welcome to hangman...Guess a country name\n"
 message2: .asciz "You have 5 tries to guess the word\n"
 message3: .asciz "Sorry you've been hanged\n"
 message4: .asciz "Congratulations you win!\n"
-format:   .asciz "%c" 
+format:   .asciz "%d " 
 
 
 .text 
@@ -24,9 +24,9 @@ main:
     bl srand
     bl rand
     mov r1, r0, ASR #1
-    mov r2, #5
+    mov r2, #90
     bl divMod
-    add r1, #1
+    add r1, #10
 
     ldr r0, address_of_format
     bl printf 
