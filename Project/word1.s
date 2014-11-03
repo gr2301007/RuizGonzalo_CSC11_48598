@@ -13,9 +13,9 @@ format:   .asciz " %c"
 
 .text 
 
-.global word1
+.global main
 
-word1: 
+main: 
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
@@ -58,53 +58,51 @@ word1:
        bl scanf                     /* Call scanf */
        ldr r1, [sp]		    /* Load character read into r1 */
 
-       mov r11, r1
-
-       cmp r11, #99		    /* letter c, ascii code = 99 */
+       cmp r1, #99		    /* letter c, ascii code = 99 */
        beq letter_c
 
-       cmp r11, #104		    /* letter h, ascii code = 104 */
+       cmp r1, #104		    /* letter h, ascii code = 104 */
        beq letter_h
 
-       cmp r11, #105		    /* letter i, ascii code = 105 */
+       cmp r1, #105		    /* letter i, ascii code = 105 */
        beq letter_i
 
-       cmp r11, #110		    /* letter n, ascii code = 110 */
+       cmp r1, #110		    /* letter n, ascii code = 110 */
        beq letter_n
 
-       cmp r11, #97		    /* letter a, ascii code = 97 */
+       cmp r1, #97		    /* letter a, ascii code = 97 */
        beq letter_a
     
        b wrong			    /* If none of this, the letter is not in the word */
 
     letter_c:
-	cmp r11, r4		    /* check if letter is already used in the word */
+	cmp r1, r4		    /* check if letter is already used in the word */
 	beq repeated
-	mov r4, r11		    /* replace '_' with the correct letter */
+	mov r4, r1		    /* replace '_' with the correct letter */
 	sub r9, r9, #1		    /* decrease size of word by one (letter is correct) */
 	b test			    /* test the condition to repeat the loop */
     letter_h:
-	cmp r11, r5
+	cmp r1, r5
 	beq repeated
-	mov r5, r11
+	mov r5, r1
 	sub r9, r9, #1
 	b test
     letter_i:			    /* do this for every single character in the word */
-	cmp r11, r6
+	cmp r1, r6
 	beq repeated
-	mov r6, r11
+	mov r6, r1
 	sub r9, r9, #1
 	b test
     letter_n:
-	cmp r11, r7
+	cmp r1, r7
 	beq repeated
-	mov r7, r11
+	mov r7, r1
 	sub r9, r9, #1
 	b test
     letter_a:
-	cmp r11, r8
+	cmp r1, r8
 	beq repeated
-	mov r8, r11
+	mov r8, r1
 	sub r9, r9, #1
 	b test
 
