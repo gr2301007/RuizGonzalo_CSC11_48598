@@ -69,7 +69,7 @@ main:
     bl printf
 
     output:
-    dr r0, address_of_message5
+    ldr r0, address_of_message5
     bl printf 
 
     cmp r1, #1
