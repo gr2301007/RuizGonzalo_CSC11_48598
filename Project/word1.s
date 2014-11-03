@@ -57,53 +57,53 @@ word1:
        mov r1, sp                   /* Set the top of the stack as the second parameter */
                                     /* of scanf */
        bl scanf                     /* Call scanf */
-       ldr r0, [sp]		    /* Load character read into r0 */
+       ldr r11, [sp]		    /* Load character read into r0 */
 
-       cmp r0, #99		    /* letter c, ascii code = 99 */
+       cmp r11, #99		    /* letter c, ascii code = 99 */
        beq letter_c
 
-       cmp r0, #104		    /* letter h, ascii code = 104 */
+       cmp r11, #104		    /* letter h, ascii code = 104 */
        beq letter_h
 
-       cmp r0, #105		    /* letter i, ascii code = 105 */
+       cmp r11, #105		    /* letter i, ascii code = 105 */
        beq letter_i
 
-       cmp r0, #110		    /* letter n, ascii code = 110 */
+       cmp r11, #110		    /* letter n, ascii code = 110 */
        beq letter_n
 
-       cmp r0, #97		    /* letter a, ascii code = 97 */
+       cmp r11, #97		    /* letter a, ascii code = 97 */
        beq letter_a
     
        b wrong			    /* If none of this, the letter is not in the word */
 
     letter_c:
-	cmp r0, r4		    /* check if letter is already used in the word */
+	cmp r11, r4		    /* check if letter is already used in the word */
 	beq repeated
-	mov r4, r0		    /* replace '_' with the correct letter */
+	mov r4, r11		    /* replace '_' with the correct letter */
 	sub r9, r9, #1		    /* decrease size of word by one (letter is correct) */
 	b test			    /* test the condition to repeat the loop */
     letter_h:
-	cmp r0, r5
+	cmp r11, r5
 	beq repeated
-	mov r5, r0
+	mov r5, r11
 	sub r9, r9, #1
 	b test
     letter_i:			    /* do this for every single character in the word */
-	cmp r0, r6
+	cmp r11, r6
 	beq repeated
-	mov r6, r0
+	mov r6, r11
 	sub r9, r9, #1
 	b test
     letter_n:
-	cmp r0, r7
+	cmp r11, r7
 	beq repeated
-	mov r7, r0
+	mov r7, r11
 	sub r9, r9, #1
 	b test
     letter_a:
-	cmp r0, r8
+	cmp r11, r8
 	beq repeated
-	mov r8, r0
+	mov r8, r11
 	sub r9, r9, #1
 	b test
 
