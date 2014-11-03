@@ -9,7 +9,7 @@ message2: .asciz "\n\nPick a letter: "
 message3: .asciz "\nThat letter isn't in the word\n"
 message4: .asciz "You have %d guesses left\n"
 message5: .asciz "\nYou already used that letter\n"
-format:   .asciz " %c" 
+format:   .asciz " %d" 
 testformat:   .asciz "%d " 
 
 .text 
