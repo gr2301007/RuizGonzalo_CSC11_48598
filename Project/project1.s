@@ -37,8 +37,6 @@ main:
     bl divMod
     add r1, #1
 
-    mov r1, #1
-
     cmp r1, #1
     beq w1
     cmp r1, #2
@@ -54,9 +52,17 @@ main:
     bl word1
     b test
     w2:
+    bl word2
+    b test
     w3:
+    bl word3
+    b test
     w4:
+    bl word4
+    b test
     w5:
+    bl word5
+    b test
 
 
     test:
@@ -95,9 +101,21 @@ main:
     bl printf 
     b end
     o2:
+    ldr r0, address_of_message7
+    bl printf 
+    b end
     o3:
+    ldr r0, address_of_message8
+    bl printf 
+    b end
     o4:
+    ldr r0, address_of_message9
+    bl printf 
+    b end
     o5:
+    ldr r0, address_of_message10
+    bl printf 
+    b end
     
     
     

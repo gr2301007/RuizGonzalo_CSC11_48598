@@ -13,9 +13,9 @@ format:   .asciz " %c"
 
 .text 
 
-.global word1
+.global word3
 
-word1: 
+word3: 
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
@@ -23,8 +23,7 @@ word1:
     mov r5, #95
     mov r6, #95
     mov r7, #95
-    mov r8, #95
-    mov r9, #5			 /*length of the word*/
+    mov r9, #4			 /*length of the word*/
     mov r10, #5			 /*Guesses left */
 
     loop:
@@ -45,10 +44,6 @@ word1:
        ldr r0, address_of_message1
        bl printf 
 
-       mov r1, r8
-       ldr r0, address_of_message1
-       bl printf 
-    
        ldr r0, address_of_message2
        bl printf 
 
@@ -58,54 +53,45 @@ word1:
        bl scanf                     /* Call scanf */
        ldr r11, [sp]		    /* Load character read into r0 */
 
-       cmp r11, #99		    /* letter c, ascii code = 99 */
-       beq letter_c
-
-       cmp r11, #104		    /* letter h, ascii code = 104 */
-       beq letter_h
-
        cmp r11, #105		    /* letter i, ascii code = 105 */
        beq letter_i
 
-       cmp r11, #110		    /* letter n, ascii code = 110 */
-       beq letter_n
+       cmp r11, #114		    /* letter r, ascii code = 114 */
+       beq letter_r
 
        cmp r11, #97		    /* letter a, ascii code = 97 */
        beq letter_a
-    
+
+       cmp r11, #113		    /* letter q, ascii code = 113 */
+       beq letter_q
+
        b wrong			    /* If none of this, the letter is not in the word */
 
-    letter_c:
+    letter_i:
 	cmp r11, r4		    /* check if letter is already used in the word */
 	beq repeated
 	mov r4, r11		    /* replace '_' with the correct letter */
 	sub r9, r9, #1		    /* decrease size of word by one (letter is correct) */
 	b test			    /* test the condition to repeat the loop */
-    letter_h:
+    letter_r:
 	cmp r11, r5
 	beq repeated
 	mov r5, r11
 	sub r9, r9, #1
 	b test
-    letter_i:			    /* do this for every single character in the word */
+    letter_a:			    /* do this for every single character in the word */
 	cmp r11, r6
 	beq repeated
 	mov r6, r11
 	sub r9, r9, #1
 	b test
-    letter_n:
+    letter_q:
 	cmp r11, r7
 	beq repeated
 	mov r7, r11
 	sub r9, r9, #1
 	b test
-    letter_a:
-	cmp r11, r8
-	beq repeated
-	mov r8, r11
-	sub r9, r9, #1
-	b test
-
+    
     repeated:				/* letter already used */
 	ldr r0, address_of_message5
         bl printf
@@ -137,7 +123,7 @@ word1:
     end:
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
-     bx lr                       /* Leave word1 */ 
+     bx lr                       /* Leave word3 */ 
    
 address_of_message1: .word message1
 address_of_message2: .word message2 
