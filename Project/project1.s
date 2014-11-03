@@ -14,6 +14,7 @@ message7: .asciz "Spain\n"
 message8: .asciz "Iraq\n"
 message9: .asciz "Haiti\n"
 message10: .asciz "Cuba\n"
+format:   .asciz "%d " 
 
 
 
@@ -39,6 +40,9 @@ main:
     add r1, #1
 
     mov r3, r1
+
+    ldr r0, address_of_format
+    bl printf 
 
     cmp r1, #1
     beq w1
@@ -82,6 +86,10 @@ main:
 
     output:
     ldr r0, address_of_message5
+    bl printf 
+
+    mov r1, r3
+    ldr r0, address_of_format
     bl printf 
 
     cmp r3, #1
@@ -136,4 +144,5 @@ address_of_message7: .word message7
 address_of_message8: .word message8
 address_of_message9: .word message9
 address_of_message10: .word message10
+address_of_format:   .word format
 
