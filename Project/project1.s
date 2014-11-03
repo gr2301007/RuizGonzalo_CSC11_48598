@@ -44,15 +44,15 @@ main:
     ldr r0, address_of_format
     bl printf 
 
-    cmp r1, #1
+    cmp r3, #1
     beq w1
-    cmp r1, #2
+    cmp r3, #2
     beq w2
-    cmp r1, #3
+    cmp r3, #3
     beq w3
-    cmp r1, #4
+    cmp r3, #4
     beq w4
-    cmp r1, #5
+    cmp r3, #5
     beq w5
 
     w1:
