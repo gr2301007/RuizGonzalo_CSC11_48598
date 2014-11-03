@@ -10,7 +10,6 @@ message3: .asciz "\nThat letter isn't in the word\n"
 message4: .asciz "You have %d guesses left\n"
 message5: .asciz "\nYou already used that letter\n"
 format:   .asciz " %c" 
-testformat:   .asciz " %d" 
 
 .text 
 
@@ -58,9 +57,6 @@ main:
                                     /* of scanf */
        bl scanf                     /* Call scanf */
        ldr r1, [sp]		    /* Load character read into r1 */
-
-       ldr r0, address_of_testformat
-       bl printf 
 
        cmp r1, #99		    /* letter c, ascii code = 99 */
        beq letter_c
@@ -149,4 +145,4 @@ address_of_message3: .word message3
 address_of_message4: .word message4
 address_of_message5: .word message5
 address_of_format:   .word format
-address_of_testformat:   .word testformat
+
