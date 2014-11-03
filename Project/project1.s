@@ -55,6 +55,11 @@ main:
     w1:
     bl word1
     b test
+    w2:
+    w3:
+    w4:
+    w5:
+
 
     test:
     cmp r0, #1
@@ -91,6 +96,10 @@ main:
     ldr r0, address_of_message6
     bl printf 
     b end
+    o2:
+    o3:
+    o4:
+    o5:
     
     
     
