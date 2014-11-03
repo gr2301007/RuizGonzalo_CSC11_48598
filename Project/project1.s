@@ -41,8 +41,7 @@ main:
 
     mov r3, #4
 
-    ldr r0, address_of_format
-    bl printf 
+    
 
     cmp r3, #1
     beq w1
@@ -86,10 +85,6 @@ main:
 
     output:
     ldr r0, address_of_message5
-    bl printf 
-
-    mov r1, r3
-    ldr r0, address_of_format
     bl printf 
 
     cmp r3, #1
