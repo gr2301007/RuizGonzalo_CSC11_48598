@@ -13,9 +13,9 @@ collatz:
  mov r4, r0
  mov r3, #4194304
 
- /* mov r0, #0 
+ mov r0, #0 
  bl time
- mov r5, r0 */
+ mov r5, r0
  
 
  collatz_repeat:
@@ -44,15 +44,15 @@ collatz:
  cmp r3, #0
  bne collatz_repeat
 
- /* mov r0, #0
+ 
+ mov r0, #0
  bl time
  mov r6, r0
  sub r1, r6, r5
  ldr r0, address_of_message1  
- bl printf */               
+ bl printf               
 
-
-
+ 
  add sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
  pop {r4}
  bx lr
@@ -95,7 +95,7 @@ collatz2:
 main:
  push {lr} 			/* keep lr */
  
- 				
+ mov r0, #1				
  bl collatz 
  bl collatz2			
 
