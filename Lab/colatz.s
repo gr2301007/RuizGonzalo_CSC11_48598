@@ -4,6 +4,8 @@
 message1: .asciz "Time without predication:%d\n"
 message2: .asciz "Time with predication:%d\n"
 
+.text
+
 collatz:
  /* r0 contains the first argument */
  push {r4}
