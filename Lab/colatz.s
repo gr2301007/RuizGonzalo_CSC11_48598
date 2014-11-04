@@ -60,7 +60,7 @@ collatz:
 
 collatz2:
  /* r0 contains the first argument */
- push {r4}
+ push {lr}
  sub sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
  mov r4, r0
  mov r3, #4194304
@@ -102,7 +102,7 @@ collatz2:
  
 
  add sp, sp, #4 	/* Restore the stack */
- pop {r4}
+ pop {lr}
  bx lr
 
 .global main
