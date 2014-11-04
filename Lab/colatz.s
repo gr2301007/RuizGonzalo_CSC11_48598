@@ -3,13 +3,13 @@
  
 message1: .asciz "Time without predication:%d\n"
 message2: .asciz "Time with predication:%d\n"
-message3: .asciz "Test/n"
+
 
 .text
 
 collatz:
  /* r0 contains the first argument */
- push {r4}
+ push {lr}
  sub sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
  mov r4, r0
  mov r3, #4194304
@@ -55,7 +55,7 @@ collatz:
 
  
  add sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
- pop {r4}
+ pop {lr}
  bx lr
 
 collatz2:
@@ -109,9 +109,6 @@ collatz2:
 main:
  push {lr} 			/* keep lr */
 
- ldr r0, address_of_message3
- bl printf 
- 
  mov r0, #1				
  bl collatz
  
@@ -124,4 +121,4 @@ main:
 
 address_of_message1: .word message1
 address_of_message2: .word message2
-address_of_message3: .word message3
+
