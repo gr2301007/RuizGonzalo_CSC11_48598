@@ -109,7 +109,7 @@ collatz2:
 main:
  push {lr} 			/* keep lr */
 
- mov r0, #1				
+ 				
  bl collatz
  
  mov r0, #1
