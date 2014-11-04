@@ -63,11 +63,16 @@ collatz2:
  sub sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
  mov r4, r0
  mov r3, #4194304
+
+ mov r0, #0 
+ bl time
+ mov r5, r0
+
+
  collatz_repeat2:
  mov r1, r4 		/* r1 ? r0 */
  mov r0, #0
-
- 		/* r0 ? 0 */
+	/* r0 ? 0 */
  collatz2_loop:
  cmp r1, #1 		/* compare r1 and 1 */
  beq collatz2_end 	/* if r1 == 1 branch to collatz2_end */
@@ -82,11 +87,19 @@ collatz2:
  add r0, r0, #1 		/* r0 ? r0 + 1 */
  b collatz2_loop 	/* branch back to collatz2_loop */
 
-
  collatz2_end:
  sub r3, r3, #1
  cmp r3, #0
  bne collatz_repeat2
+ 
+ mov r0, #0
+ bl time
+ mov r6, r0
+ sub r1, r6, r5
+ ldr r0, address_of_message1  
+ bl printf 
+ 
+
  add sp, sp, #4 	/* Restore the stack */
  pop {r4}
  bx lr
@@ -96,7 +109,8 @@ main:
  push {lr} 			/* keep lr */
  
  mov r0, #1				
- bl collatz 
+ bl collatz
+ mov r0, #1
  bl collatz2			
 
  
