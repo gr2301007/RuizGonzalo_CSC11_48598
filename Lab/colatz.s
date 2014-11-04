@@ -1,3 +1,9 @@
+
+.data
+ 
+message1: .asciz "Time without predication:%d\n"
+message2: .asciz "Time with predication:%d\n"
+
 collatz:
  /* r0 contains the first argument */
  push {r4}
@@ -8,7 +14,10 @@ collatz:
  mov r1, r4 		/* r1 ? r0 */
  mov r0, #0 		/* r0 ? 0 */
 
- 
+ bl time
+ mov r5, r0
+ mov r0, #0
+
 
  collatz_loop:
  cmp r1, #1 		/* compare r1 and 1 */
@@ -27,6 +36,14 @@ collatz:
  add r0, r0, #1 	/* r0 ? r0 + 1 */
  b collatz_loop 	/* branch back to collatz_loop */
 
+ mov r0, #0
+ bl time
+ mov r6, r0
+
+ sub r1, r6, r5
+ 
+ ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */
+ bl printf                    /* Call printf */
 
  collatz_end:
  sub r3, r3, #1
@@ -68,22 +85,19 @@ collatz2:
  bne collatz_repeat
  add sp, sp, #4 	/* Restore the stack */
  pop {r4}
- bx lr
-
+ bx lr
 
 .global main
 main:
  push {lr} 			/* keep lr */
  
- 					the value stored (by scanf) in the top of the stack */
- bl collatz 			/* call collatz */
+ 				
+ bl collatz 
+ bl collatz2			
 
- mov r2, r0 			/* third parameter of printf:
- 				the result of collatz */
- ldr r1, [sp] 			/* second parameter of printf:
- 					the value stored (by scanf) in the top of the stack */
- ldr r0, address_of_message2 	/* first parameter of printf: &address_of_message2 */
- bl printf
- add sp, sp, #4
+ 
  pop {lr}
- bx lr
+ bx lr
+
+address_of_message1: .word message1
+address_of_message2: .word message2
