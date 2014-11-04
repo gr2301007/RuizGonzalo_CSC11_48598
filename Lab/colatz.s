@@ -108,11 +108,13 @@ collatz2:
 .global main
 main:
  push {lr} 			/* keep lr */
+
+ ldr r0, address_of_message3
+ bl printf 
  
  mov r0, #1				
  bl collatz
- ldr r0, address_of_message3
- bl printf 
+ 
  mov r0, #1
  bl collatz2			
 
