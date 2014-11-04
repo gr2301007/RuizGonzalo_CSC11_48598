@@ -3,6 +3,7 @@
  
 message1: .asciz "Time without predication:%d\n"
 message2: .asciz "Time with predication:%d\n"
+message3: .asciz "Test/n"
 
 .text
 
@@ -96,7 +97,7 @@ collatz2:
  bl time
  mov r6, r0
  sub r1, r6, r5
- ldr r0, address_of_message1  
+ ldr r0, address_of_message2  
  bl printf 
  
 
@@ -110,6 +111,8 @@ main:
  
  mov r0, #1				
  bl collatz
+ ldr r0, address_of_message3
+ bl printf 
  mov r0, #1
  bl collatz2			
 
@@ -119,3 +122,4 @@ main:
 
 address_of_message1: .word message1
 address_of_message2: .word message2
+address_of_message3: .word message3
