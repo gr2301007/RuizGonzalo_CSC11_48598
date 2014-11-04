@@ -11,7 +11,7 @@ collatz:
  /* r0 contains the first argument */
  push {lr}
  sub sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
- mov r4, r0
+ mov r4, #222
  mov r3, #4194304
 
  mov r0, #0 
@@ -111,8 +111,6 @@ main:
 
  				
  bl collatz
- 
- mov r0, #1
  bl collatz2			
 
  
