@@ -46,9 +46,9 @@ collatz:
  bl time
  mov r6, r0
  sub r1, r6, r5
- ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */
- bl printf                    /* Call printf */
- */
+ ldr r0, address_of_message1  
+ bl printf */               
+
 
 
  add sp, sp, #4 	/* Make sure the stack is 8 byte aligned */
