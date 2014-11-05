@@ -13,9 +13,9 @@ format:   .asciz " %c"
 
 .text 
 
-.global word3
+.global main
 
-word3: 
+main: 
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
