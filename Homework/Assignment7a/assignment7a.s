@@ -84,7 +84,7 @@ main:
      ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
-     loop:
+     loop4:
      ldr r0, address_of_format    /* Set format as the first parameter of scanf */ 
      mov r1, sp                   /* Set the top of the stack as the second parameter*/ 
      bl scanf                     /* Call scanf */ 
@@ -103,7 +103,7 @@ main:
      invalid:
      ldr r0, address_of_message2  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
-     b loop
+     b loop4
 
 
      output:     
