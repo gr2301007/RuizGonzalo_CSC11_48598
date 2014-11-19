@@ -16,12 +16,11 @@ convert:
      push {lr}
 
      sub r3, r0, #32
-     mov r1, #5
+     mov r2, #5
+     mul r1, r2, r3
      mov r2, #9
      bl divMod
-     mov r2, r0
-     mul r0, r3, r2
-
+     
      pop {lr}
      bx lr
 
