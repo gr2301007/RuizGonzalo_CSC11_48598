@@ -29,7 +29,7 @@ convertDivMod:
 convertPureInt:
 	push {lr}
 
-	ldr r1, #0x8e38f
+	ldr r1, 0x8e38f
 	sub r2, r0, #32
 	mul r0, r1, r2
 	mov r0, r0, ASR #24
