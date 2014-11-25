@@ -29,7 +29,7 @@ convertDivMod:
 convertPureInt:
 	push {lr}
 
-	mov r1, 0x8e38f
+	mov r1, #0x8e38f
 	sub r2, r0, #32
 	mul r0, r1, r2
 	mov r0, r0, ASR #20
@@ -130,6 +130,6 @@ main:
 address_of_message1: .word message1 
 address_of_message2: .word message2 
 address_of_message3: .word message3
-address_of_message2: .word message4
-address_of_message3: .word message5
+address_of_message4: .word message4
+address_of_message5: .word message5
 address_of_format:   .word format 
