@@ -109,7 +109,7 @@ main:
      cmp r0, #212
      bgt invalid
 
-     mov r7, #0xffffffff	  /*Number of loops*/
+     mov r7, #5          	  /*Number of loops*/
      mov r8, r0
 
      mov r0, #0 
