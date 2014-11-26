@@ -109,17 +109,19 @@ main:
      cmp r0, #212
      bgt invalid
 
-     mov r2, #5
+     mov r7, #5
+     mov r2, r0
 
      mov r0, #0 
      bl time
      mov r3, r0
+     mov r0, r2
 
-     /*loopDivMod:
+     loopDivMod:
         bl convertDivMod
-        sub r2, r2, #1
-        cmp r2, #0
-        bne loopDivMod*/
+        sub r7, r7, #1
+        cmp r7, #0
+        bne loopDivMod
 
      mov r5, r0
      mov r0, #0 
