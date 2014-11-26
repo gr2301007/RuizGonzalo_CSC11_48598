@@ -129,7 +129,41 @@ main:
      mov r4, r0
      sub r6, r4, r9
 
-     b output
+     mov r1, r5
+     ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
+     bl printf                    /* Call printf */
+     mov r1, r6
+     ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
+     bl printf                    /* Call printf */
+
+     
+
+     ldr r7, =0x989680           /*Number of loops*/
+     
+     mov r0, #0 
+     bl time
+     mov r9, r0
+     
+     loopPureInt:
+        mov r0, r8
+        bl convertPureInt
+        sub r7, r7, #1
+        cmp r7, #0
+        bne loopPureInt
+
+     mov r5, r0
+     mov r0, #0 
+     bl time
+     mov r4, r0
+     sub r6, r4, r9
+
+     mov r1, r5
+     ldr r0, address_of_message4  /* Set &message3 as the first parameter of printf */ 
+     bl printf                    /* Call printf */
+     mov r1, r6
+     ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
+     bl printf                    /* Call printf */
+     
 
      invalid:
      ldr r0, address_of_message2  /* Set &message3 as the first parameter of printf */ 
@@ -137,15 +171,6 @@ main:
      b loop4
 
 
-     output:     
-     mov r1, r5
-     ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
-     bl printf                    /* Call printf */
-
-     mov r1, r6
-     ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
-     bl printf                    /* Call printf */
-    
      add sp, sp, #4               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave problem3 */ 
