@@ -114,7 +114,7 @@ main:
 
      mov r0, #0 
      bl time
-     move r9, r0
+     mov r9, r0
      
      loopDivMod:
         mov r0, r8
