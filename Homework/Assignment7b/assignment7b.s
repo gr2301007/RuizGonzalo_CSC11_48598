@@ -110,14 +110,14 @@ main:
      bgt invalid
 
      mov r7, #5			  /*Number of loops*/
-     mov r2, r0
+     mov r8, r0
 
      mov r0, #0 
      bl time
      mov r3, r0
      
      loopDivMod:
-        mov r0, r2
+        mov r0, r8
         bl convertDivMod
         sub r7, r7, #1
         /*cmp r7, #0
@@ -142,7 +142,7 @@ main:
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-     mov r1, r6
+     mov r1, r3
      ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
     
