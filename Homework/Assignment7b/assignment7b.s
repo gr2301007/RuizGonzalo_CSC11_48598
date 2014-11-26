@@ -109,7 +109,7 @@ main:
      cmp r0, #212
      bgt invalid
 
-     mov r2, #0xffffffff
+     mov r2, #5
 
      mov r0, #0 
      bl time
