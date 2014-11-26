@@ -10,7 +10,13 @@ message2: .asciz "Enter 32 - 212 only: "
 message3: .asciz "Celsius(DivMod) = %d\n"
 message4: .asciz "\nCelsius(Pure Int) = %d\n"
 message5: .asciz "Time it took: %d (secs)\n"
+message6: .asciz "\nDrag problem\n"
+message7: .asciz "\nEnter Velocity and Radius: "
+message8: .asciz "Integer Dynamic Pressure = %d (lbs)\n"
+message9: .asciz "Cross Sectional Area x 32 = %d (ft^2)\n"
+message10: .asciz "Integer Drag x 32 = %d (lbs)\n"
 format:   .asciz "%d" 
+format2:   .asciz "%d %d"
   
 .text
 
@@ -90,7 +96,7 @@ divMod:
 
 main: 
      str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
-     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
+     sub sp, sp, #8               /* Make room for two 4 byte integer in the stack */ 
      
  	 
      ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
@@ -133,7 +139,7 @@ main:
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      mov r1, r6
-     ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
+     ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
      
@@ -158,27 +164,48 @@ main:
      sub r6, r4, r9
 
      mov r1, r5
-     ldr r0, address_of_message4  /* Set &message3 as the first parameter of printf */ 
+     ldr r0, address_of_message4  /* Set &message4 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      mov r1, r6
-     ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
+     ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      
-     b endmain
+     b drag
 
      invalid:
-     ldr r0, address_of_message2  /* Set &message3 as the first parameter of printf */ 
+     ldr r0, address_of_message2  /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      b loop4
 
-     endmain:
-     add sp, sp, #4               /* Discard the integer read by scanf */ 
-     ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-     bx lr                        /* Leave problem3 */ 
+     drag:
+        ldr r0, address_of_message6   
+        bl printf                    
+
+        ldr r0, address_of_message7  
+        bl printf                    
+   
+        ldr r0, address_of_format2    
+        mov r2, sp                   
+        add r1, r2, #4                
+        bl scanf                     
+
+        add r1, sp, #4               /* Place sp+4 -> r1 */ 
+        ldr r1, [r1]                 /* Load the integer read by scanf into r1 */ 
+        ldr r2, [sp]		    /* Load the integer read by scanf into r2 */ 
+
+       add sp, sp, #8               /* Discard the integer read by scanf */ 
+       ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
+       bx lr                        /* Leave problem3 */ 
    
 address_of_message1: .word message1 
 address_of_message2: .word message2 
 address_of_message3: .word message3
 address_of_message4: .word message4
 address_of_message5: .word message5
-address_of_format:   .word format 
+address_of_message6: .word message6 
+address_of_message7: .word message7 
+address_of_message8: .word message8
+address_of_message9: .word message9
+address_of_message10: .word message10
+address_of_format:   .word format
+address_of_format2:   .word format2 
