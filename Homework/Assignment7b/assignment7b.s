@@ -114,7 +114,7 @@ main:
 
      mov r0, #0 
      bl time
-     mov r3, r0
+     move r9, r0
      
      loopDivMod:
         mov r0, r8
@@ -127,7 +127,7 @@ main:
      mov r0, #0 
      bl time
      mov r4, r0
-     sub r6, r4, r3
+     sub r6, r4, r9
 
      b output
 
@@ -142,7 +142,7 @@ main:
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-     mov r1, r4
+     mov r1, r6
      ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
     
