@@ -8,7 +8,7 @@
 message1: .asciz "Enter fahrenheit (32 - 212): "
 message2: .asciz "Enter 32 - 212 only: "
 message3: .asciz "Celsius(DivMod) = %d\n"
-message4: .asciz "Celsius(Pure Int) = %d\n"
+message4: .asciz "\nCelsius(Pure Int) = %d\n"
 message5: .asciz "Time it took: %d (secs)\n"
 format:   .asciz "%d" 
   
@@ -164,13 +164,14 @@ main:
      ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      
+     b end
 
      invalid:
      ldr r0, address_of_message2  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      b loop4
 
-
+     end:
      add sp, sp, #4               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave problem3 */ 
