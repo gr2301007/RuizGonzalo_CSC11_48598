@@ -164,14 +164,14 @@ main:
      ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      
-     b end
+     b endmain
 
      invalid:
      ldr r0, address_of_message2  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
      b loop4
 
-     end:
+     endmain:
      add sp, sp, #4               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave problem3 */ 
