@@ -120,8 +120,8 @@ main:
         mov r0, r2
         bl convertDivMod
         sub r7, r7, #1
-        cmp r7, #0
-        bne loopDivMod
+        /*cmp r7, #0
+        bne loopDivMod*/
 
      mov r5, r0
      mov r0, #0 
