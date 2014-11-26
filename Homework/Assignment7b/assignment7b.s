@@ -109,7 +109,24 @@ main:
      cmp r0, #212
      bgt invalid
 
-     bl convertPureInt
+     mov r2, #10000000
+
+     mov r0, #0 
+     bl time
+     mov r3, r0
+
+     loopDivMod:
+        bl convertDivMod
+        sub r2, #1
+        cmp r2, #0
+        bgt loopDivMod
+
+     mov r5, r0
+     mov r0, #0 
+     bl time
+     mov r4, r0
+     sub r6, r4, r3
+
      b output
 
      invalid:
@@ -119,8 +136,12 @@ main:
 
 
      output:     
-     mov r1, r0
+     mov r1, r5
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
+     bl printf                    /* Call printf */
+
+     mov r1, r6
+     ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
     
      add sp, sp, #4               /* Discard the integer read by scanf */ 
