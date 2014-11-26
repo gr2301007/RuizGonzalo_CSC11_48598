@@ -109,7 +109,7 @@ main:
      cmp r0, #212
      bgt invalid
 
-     mov r7, #5			  /*Number of loops*/
+     mov r7, #0xffffffff	  /*Number of loops*/
      mov r8, r0
 
      mov r0, #0 
@@ -120,8 +120,8 @@ main:
         mov r0, r8
         bl convertDivMod
         sub r7, r7, #1
-        /*cmp r7, #0
-        bne loopDivMod*/
+        cmp r7, #0
+        bne loopDivMod
 
      mov r5, r0
      mov r0, #0 
