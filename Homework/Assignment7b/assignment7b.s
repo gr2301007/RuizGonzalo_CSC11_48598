@@ -109,7 +109,7 @@ main:
      cmp r0, #212
      bgt invalid
 
-     mov r7, #5
+     mov r7, #5			  /*Number of loops*/
      mov r2, r0
 
      mov r0, #0 
@@ -127,7 +127,7 @@ main:
      mov r0, #0 
      bl time
      mov r4, r0
-     sub r6, r4, r3
+     sub r6, r3, r4
 
      b output
 
