@@ -115,11 +115,11 @@ main:
      bl time
      mov r3, r0
 
-     loopDivMod:
+     /*loopDivMod:
         bl convertDivMod
         sub r2, r2, #1
         cmp r2, #0
-        bne loopDivMod
+        bne loopDivMod*/
 
      mov r5, r0
      mov r0, #0 
