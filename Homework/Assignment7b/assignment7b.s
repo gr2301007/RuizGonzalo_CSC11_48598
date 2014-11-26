@@ -190,12 +190,42 @@ main:
         bl scanf                     
 
         add r1, sp, #4               /* Place sp+4 -> r1 */ 
-        ldr r1, [r1]                 /* Load the integer read by scanf into r1 */ 
-        ldr r2, [sp]		    /* Load the integer read by scanf into r2 */ 
+        ldr r1, [r1]                 /* Load the integer velocity read by scanf into r1 */ 
+        ldr r2, [sp]		    /* Load the integer radius read by scanf into r2 */
 
-       add sp, sp, #8               /* Discard the integer read by scanf */ 
-       ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
-       bx lr                        /* Leave problem3 */ 
+	ldr r3, =0x9b5
+	ldr r4, =0x3243f7
+	ldr r5, =0x1c7
+	ldr r6, =0x666
+
+	mul r7, r1, r3
+	mul r8, r7, r1
+	mov r8, r8, ASR #12
+	
+	mul r7, r4, r2
+	mul r9, r7, r2
+	mov r9, r9, ASR #12
+	mul r10, r9, r5
+	mov r10, r10, ASR #16
+	mul r7, r8, r10
+	mov r7, r7, ASR #12
+	mul r9, r7, r6
+
+	mov r1, r8
+        ldr r0, address_of_message8   
+        bl printf                    
+
+	mov r1, r10
+        ldr r0, address_of_message9  
+        bl printf
+
+	mov r1, r9
+        ldr r0, address_of_message10   
+        bl printf 
+
+       add sp, sp, #8               
+       ldr lr, [sp], #+4            
+       bx lr                        
    
 address_of_message1: .word message1 
 address_of_message2: .word message2 
