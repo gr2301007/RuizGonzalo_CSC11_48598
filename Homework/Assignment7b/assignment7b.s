@@ -211,6 +211,10 @@ main:
 	mov r7, r7, ASR #12
 	mul r9, r7, r6
 
+	mov r8, r8, ASR #9
+	mov r10, r10, ASR #3
+	mov r9, r9, ASR #12
+
 	mov r1, r8
         ldr r0, address_of_message8   
         bl printf                    
