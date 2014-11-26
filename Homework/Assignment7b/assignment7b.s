@@ -109,7 +109,7 @@ main:
      cmp r0, #212
      bgt invalid
 
-     mov r7, #5          	  /*Number of loops*/
+     mov r7, #4194304          	  /*Number of loops*/
      mov r8, r0
 
      mov r0, #0 
@@ -142,7 +142,7 @@ main:
      ldr r0, address_of_message3  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-     mov r1, r3
+     mov r1, r4
      ldr r0, address_of_message5  /* Set &message3 as the first parameter of printf */ 
      bl printf                    /* Call printf */
     
