@@ -115,9 +115,9 @@ main:
      mov r0, #0 
      bl time
      mov r3, r0
-     mov r0, r2
-
+     
      loopDivMod:
+        mov r0, r2
         bl convertDivMod
         sub r7, r7, #1
         cmp r7, #0
@@ -127,7 +127,7 @@ main:
      mov r0, #0 
      bl time
      mov r4, r0
-     sub r6, r3, r4
+     sub r6, r4, r3
 
      b output
 
