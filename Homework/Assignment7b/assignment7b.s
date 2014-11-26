@@ -119,7 +119,7 @@ main:
         bl convertDivMod
         sub r2, #1
         cmp r2, #0
-        bgt loopDivMod
+        bne loopDivMod
 
      mov r5, r0
      mov r0, #0 
