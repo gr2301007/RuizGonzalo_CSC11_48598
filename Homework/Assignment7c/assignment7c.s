@@ -51,12 +51,12 @@ convertFloat:
 
 	ldr r1, address_of_value1
 	sub r2, r0, #32
-	vldr s0, [r2]
-	vldr s1, [r1]
+	VLDR s0, [r2]
+	VLDR s1, [r1]
 
         vmul.f32 s2, s1=0, s1
 	vcvt.f64.f32 d2, s2
-	vmov r2, r3, d2
+	VMOV r2, r3, d2
 	
 	pop {lr}
 	bx lr
@@ -266,6 +266,6 @@ address_of_message7: .word message7
 address_of_message8: .word message8
 address_of_message9: .word message9
 address_of_message10: .word message10
-address_of_message10: .word message11
+address_of_message11: .word message11
 address_of_format:   .word format
 address_of_format2:   .word format2 
