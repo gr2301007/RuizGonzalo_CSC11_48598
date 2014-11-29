@@ -6,7 +6,7 @@ main:
 	ldr r1, addr_value1
 	vldr s14, [r1]
 	vcvt.f64.f32 d5, s14
-	ldr ro, =string
+	ldr r0, =string
 	vmov r2, r3, d5
 	bl printf
 
