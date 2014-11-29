@@ -51,12 +51,12 @@ convertFloat:
 
 	ldr r1, address_of_value1
 	sub r2, r0, #32
-	VLDR s0, [r2]
-	VLDR s1, [r1]
+	vldr s0, [r2]
+	vldr s1, [r1]
 
-        vmul.f32 s2, s1=0, s1
+        vmul.f32 s2, s0, s1
 	vcvt.f64.f32 d2, s2
-	VMOV r2, r3, d2
+	vmov r2, r3, d2
 	
 	pop {lr}
 	bx lr
