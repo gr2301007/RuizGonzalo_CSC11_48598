@@ -1,11 +1,14 @@
-.global main
-.func main
+
+
 
 .data
 
 value1: .float 0.55556
 message11: .asciz "\nCelsius(Float multiplication) = %f\n"
 
+.text
+
+.global main
 main:
 
 	ldr r1, =value1
