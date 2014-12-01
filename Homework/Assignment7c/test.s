@@ -3,7 +3,7 @@
 
 main:
 
-	ldr r1, addr_value1
+	ldr r1, =value1
 	vldr s14, [r1]
 	vcvt.f64.f32 d5, s14
 	ldr r0, =string
