@@ -4,7 +4,7 @@
 .data
 
 value1: .float 0.55556
-value2: float 68.0
+value2: .float 68.0
 message11: .asciz "\nCelsius(Float multiplication) = %f\n"
 
 .text
@@ -14,7 +14,7 @@ main:
 	
 	
 	ldr r1, =value1
-	ldr r2 =value2
+	ldr r2, =value2
 	vldr s2, [r1]
 	vldr s3, [r2]
 
