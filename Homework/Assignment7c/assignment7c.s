@@ -5,7 +5,7 @@
 
 .data
 
-value1: .float 0.55556    /*Temperature problem: 5/9 */
+value1: .float 1.54321    /*Temperature problem: 5/9 */
    
 message1: .asciz "Enter fahrenheit (32 - 212): "
 message2: .asciz "Enter 32 - 212 only: "
