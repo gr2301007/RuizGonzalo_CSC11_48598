@@ -193,7 +193,7 @@ main:
 
         /*vmul.f32 s2, s0, s1
 	vcvt.f64.f32 d2, s2
-	vmov r2, r3, d2*/
+	vmov r2, r3, d5*/
 
          
      ldr r0, =message11  
