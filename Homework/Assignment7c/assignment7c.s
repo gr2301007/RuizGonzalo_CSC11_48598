@@ -183,7 +183,7 @@ main:
 	mov r0, r8
 
      
-	ldr r1, address_of_value1
+	ldr r1, =value1
 	/*sub r2, r0, #32 */
 	vldr s14, [r1]		/* vldr s0, [r2] */
 	/*vldr s1, [r1]*/
