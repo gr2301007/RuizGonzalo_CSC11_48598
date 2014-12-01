@@ -10,8 +10,8 @@ message11: .asciz "\nCelsius(Float multiplication) = %f\n"
 
 .global main
 main:
-	mov r0 #100
-	sub r2 r0, #32
+	mov r0, #100
+	sub r2, r0, #32
 	vldr s0, [r2]
 	
 	ldr r1, =value1
