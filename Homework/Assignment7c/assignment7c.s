@@ -51,12 +51,15 @@ convertFloat:
 
 	ldr r1, address_of_value1
 	sub r2, r0, #32
-	vldr s0, [r2]
-	vldr s1, [r1]
+	vldr s14, [r1]		/* vldr s0, [r2] */
+	/*vldr s1, [r1]*/
 
-        vmul.f32 s2, s0, s1
+	vcvt.f64.f32 d5, s14
+	vmov r2, r3, d5
+
+        /*vmul.f32 s2, s0, s1
 	vcvt.f64.f32 d2, s2
-	vmov r2, r3, d2
+	vmov r2, r3, d2*/
 	
 	pop {lr}
 	bx lr
@@ -190,8 +193,8 @@ main:
 
      bl convertFloat
 
-     /*ldr r0, address_of_message11  
-     bl printf */                   
+     ldr r0, address_of_message11  
+     bl printf                 
      
      b drag
 
