@@ -190,8 +190,8 @@ main:
 
      bl convertFloat
 
-     ldr r0, address_of_message11  /* Set &message11 as the first parameter of printf */ 
-     bl printf                    /* Call printf */
+     /*ldr r0, address_of_message11  
+     bl printf */                   
      
      b drag
 
