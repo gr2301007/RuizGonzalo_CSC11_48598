@@ -49,17 +49,6 @@ convertPureInt:
 convertFloat:
 	push {lr}
 
-	ldr r1, address_of_value1
-	sub r2, r0, #32
-	vldr s14, [r1]		/* vldr s0, [r2] */
-	/*vldr s1, [r1]*/
-
-	vcvt.f64.f32 d5, s14
-	vmov r2, r3, d5
-
-        /*vmul.f32 s2, s0, s1
-	vcvt.f64.f32 d2, s2
-	vmov r2, r3, d2*/
 	
 	pop {lr}
 	bx lr
@@ -191,7 +180,20 @@ main:
      ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-     bl convertFloat
+	mov r0, r8
+
+     
+	ldr r1, address_of_value1
+	sub r2, r0, #32
+	vldr s14, [r1]		/* vldr s0, [r2] */
+	/*vldr s1, [r1]*/
+
+	vcvt.f64.f32 d5, s14
+	vmov r2, r3, d5
+
+        /*vmul.f32 s2, s0, s1
+	vcvt.f64.f32 d2, s2
+	vmov r2, r3, d2*/
 
      ldr r0, address_of_message11  
      bl printf                 
