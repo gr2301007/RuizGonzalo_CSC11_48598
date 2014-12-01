@@ -54,7 +54,7 @@ convertFloat:
 	vldr s0, [r2]
 	vldr s1, [r1]
 
-        vmul.f32 s2, s0, s1
+        vmul.f64 s2, s0, s1
 	vcvt.f64.f32 d2, s2
 	vmov r2, r3, d2
 	
