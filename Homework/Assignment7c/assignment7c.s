@@ -184,7 +184,7 @@ main:
 
      
 	ldr r1, address_of_value1
-	sub r2, r0, #32
+	/*sub r2, r0, #32 */
 	vldr s14, [r1]		/* vldr s0, [r2] */
 	/*vldr s1, [r1]*/
 
@@ -196,7 +196,7 @@ main:
 	vmov r2, r3, d2*/
 
          
-     ldr r0, address_of_message11  
+     ldr r0, =message11  
      vmov r2, r3, d5 
      bl printf                 
      
