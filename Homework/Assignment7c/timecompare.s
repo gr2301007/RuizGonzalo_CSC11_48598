@@ -152,6 +152,6 @@ ad_m4:.word m4
 ad_format:.word format
 ad_store1:.word store1
 ad_store2:.word store2
-ad_format:.word format1
+ad_format1:.word format1
 .global printf
 .global scanf
