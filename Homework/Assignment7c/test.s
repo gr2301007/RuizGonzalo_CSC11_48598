@@ -13,10 +13,7 @@ format:   .asciz "%f"
 
 .global main
 main:
-	str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
-        sub sp, sp, #8               /* Make room for two 4 byte integer in the stack */
-
-
+	
 	ldr r1, =value1
 	ldr r0, =value2
 	vldr s2, [r1]
@@ -30,9 +27,9 @@ main:
 	vmov r2, r3, d0
 	bl printf
 
-       add sp, sp, #8               
-       ldr lr, [sp], #+4            
-       bx lr         
+      mov r7, #1
+      swi 0         
+             
 
 addr_value1: .word value1
 
