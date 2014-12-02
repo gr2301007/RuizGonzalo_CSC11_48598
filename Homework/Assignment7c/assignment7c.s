@@ -177,19 +177,39 @@ main:
      ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-     ldr r1, =value1
-	ldr r0, =value2
-	vldr s2, [r1]
-	vldr s3, [r0]
 
-	vmul.f32 s4, s2, s3
-
-	vcvt.f64.f32 d0, s4
-	
-	ldr r0, =message11
-	vmov r2, r3, d0
-	bl printf
+     ldr r7, =0x989680           /*Number of loops*/
      
+     mov r0, #0 
+     bl time
+     mov r9, r0
+
+     ldr r1, =value1
+     ldr r0, =value2
+     vldr s2, [r1]
+     vldr s3, [r0]
+     
+     loopFloat:
+        vmul.f32 s4, s2, s3
+	vcvt.f64.f32 d0, s4
+        sub r7, r7, #1
+        cmp r7, #0
+        bne loopFloat
+
+     mov r5, r0
+     mov r0, #0 
+     bl time
+     mov r4, r0
+     sub r6, r4, r9
+
+     ldr r0, =message11
+     vmov r2, r3, d0
+     bl printf
+     
+     mov r1, r6
+     ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
+     bl printf                    /* Call printf */
+
      b drag
 
      invalid:
