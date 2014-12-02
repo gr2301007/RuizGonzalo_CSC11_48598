@@ -17,30 +17,6 @@
  .globl main 
  
  
- init_array: 
-     /* Parameters:  
-            r0  Number of items 
-            r1  Address of the array 
-     */ 
-     push {r5, lr} 
-   
-     /* We have passed all the data by reference */ 
-   
-     /* r5 will be incremented from 0 to the end */ 
-     mov r5, #0      /* r5 ? 0 */ 
-   
-     b .Lcheck_loop_array_sum 
-     .Lloop_array_sum: 
- 	  str r5, [r1, r5, LSL #2]   /*Inititialize the array 0..255 */ 
-       add r5, r5, #1             /* r5 ? r5 + 1 */ 
-     .Lcheck_loop_array_sum: 
-       cmp r5, r0                 /* r5 - r0 and update cpsr */ 
-       bne .Lloop_array_sum       /* if r5 != r0 go to .Lloop_array_sum */ 
-   
-     pop {r5, lr} 
-   
-     bx lr 
-   
  double_array :  
      /* Parameters:  
             r0  Number of items 
@@ -97,23 +73,13 @@
      push {r4, lr} 
      /* we will not use r4 but we need to keep the function 8-byte aligned */ 
  	 
- 	/* first call print_each_item */ 
-     mov r0, #10                   /* first_parameter: number of items */ 
-     ldr r1, address_of_big_array   /* second parameter: address of the array */ 
-     bl init_array                  /* call to print_each_item */ 
-   
-     /* first call print_each_item */ 
-     mov r0, #10                   /* first_parameter: number of items */ 
-     ldr r1, address_of_big_array   /* second parameter: address of the array */ 
-     bl print_each_item             /* call to print_each_item */ 
-   
      /* call to double_array */ 
-     mov r0, #10                   /* first_parameter: number of items */ 
+     mov r0, #180                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl double_array               /* call to double_array */ 
    
      /* second call print_each_item */ 
-     mov r0, #10                   /* first_parameter: number of items */ 
+     mov r0, #180                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl print_each_item             /* call to print_each_item */ 
    
