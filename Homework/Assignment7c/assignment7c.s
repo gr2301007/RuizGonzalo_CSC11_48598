@@ -32,7 +32,8 @@ message8: .asciz "\nInteger Dynamic Pressure = %d (lbs)\n"
 message9: .asciz "Cross Sectional Area x 32 = %d (ft^2)\n"
 message10: .asciz "Integer Drag x 32 = %d (lbs)\n"
 message11: .asciz "\nCelsius(Float multiplication) = %f\n"
-format:   .asciz "%f" 
+format:   .asciz "%f"
+format1:   .asciz "%d"
 format2:   .asciz "%d %d"
   
 .text
@@ -127,7 +128,7 @@ main:
      bl printf                    /* Call printf */ 
 
      loop4:
-     ldr r0, address_of_format    /* Set format as the first parameter of scanf */ 
+     ldr r0, address_of_format1    /* Set format as the first parameter of scanf */ 
      mov r1, sp                   /* Set the top of the stack as the second parameter*/ 
      bl scanf                     /* Call scanf */ 
    
@@ -328,4 +329,5 @@ address_of_message9: .word message9
 address_of_message10: .word message10
 address_of_message11: .word message11
 address_of_format:   .word format
+address_of_format1:   .word format1
 address_of_format2:   .word format2 
