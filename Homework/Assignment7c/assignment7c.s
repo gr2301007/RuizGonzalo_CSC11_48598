@@ -206,7 +206,7 @@ main:
 	vldr s10,[r1]
 
 	
-	ldr r0,address_of_format
+	ldr r0,address_of_format    /*Couldn't get the float operations to work in a loop  for 				                    time study*/
 	ldr r1,address_of_f
 	bl scanf
 
@@ -260,7 +260,7 @@ main:
 	vmul.f32 s10, s27, s24
 	vmul.f32 s11, s10, s24
 
-	vmul.f32 s12, s28, s25
+	vmul.f32 s12, s28, s25   /* This doesn't work either ran out of time so turned in what I had */
 	vmul.f32 s13, s12, s25
 	vmul.f32 s14, s13, s29
 
