@@ -7,6 +7,14 @@
 
 value1: .float 0.55556    /*Temperature problem: 5/9 */
 value2: .float 68.0       /* fahrenheit: 100 - 32 = 68 */
+value3: .float 1.0        /* Half */
+value4: .float 0.00237    /* Rho */
+value5: .float 3.1416     /* Pi */
+value6: .float 0.0069     /* Conv 1 / 144 */
+value7: .float 0.4        /* Cd */
+value8: .float 200.0      /* Velocity */
+value9: .float 6.0        /* Radius */
+ 
    
 message: .asciz "Fahrenheit = 100\n"
 message1: .asciz "Enter fahrenheit (32 - 212): "
@@ -15,7 +23,7 @@ message3: .asciz "Celsius(DivMod) = %d\n"
 message4: .asciz "\nCelsius(Pure Int) = %d\n"
 message5: .asciz "Time it took: %d (secs)\n"
 message6: .asciz "\nDrag problem\n"
-message7: .asciz "\nEnter Velocity and Radius: "
+message7: .asciz "\nVelocity = 200 Radius = 6"
 message8: .asciz "Integer Dynamic Pressure = %d (lbs)\n"
 message9: .asciz "Cross Sectional Area x 32 = %d (ft^2)\n"
 message10: .asciz "Integer Drag x 32 = %d (lbs)\n"
@@ -224,48 +232,50 @@ main:
         ldr r0, address_of_message7  
         bl printf                    
    
-        ldr r0, address_of_format2    
-        mov r2, sp                   
-        add r1, r2, #4                
-        bl scanf                     
+       
+	ldr r1, =value8
+	ldr r2, =value9
 
-        add r1, sp, #4               /* Place sp+4 -> r1 */ 
-        ldr r1, [r1]                 /* Load the integer velocity read by scanf into r1 */ 
-        ldr r2, [sp]		    /* Load the integer radius read by scanf into r2 */
-
-	ldr r3, =0x9b5
-	ldr r4, =0x3243f7
-	ldr r5, =0x1c7
-	ldr r6, =0x666
-
-	mul r7, r1, r3
-	mul r8, r7, r1
-	mov r8, r8, ASR #12
+	ldr r3, =value3
+	ldr r4, =value4
+	ldr r5, =value5
+	ldr r6, =value6
+	ldr r7, =value7
 	
-	mul r7, r4, r2
-	mul r9, r7, r2
-	mov r9, r9, ASR #12
-	mul r10, r9, r5
-	mov r10, r10, ASR #16
-	mul r7, r8, r10
-	mov r7, r7, ASR #12
-	mul r9, r7, r6
+	vldr s24, [r1]
+	vldr s25, [r2]
+	vldr s26, [r3]
+	vldr s27, [r4]
+	vldr s28, [r5]
+	vldr s29, [r6]
+	vldr s30, [r7]
+	
+	vmul.f32 s10, s27, s24
+	vmul.f32 s11, s10, s24
 
-	mov r8, r8, ASR #9
-	mov r10, r10, ASR #3
-	mov r9, r9, ASR #12
+	vmul.f32 s12, s28, s25
+	vmul.f32 s13, s12, s25
+	vmul.f32 s14, s13, s29
 
-	mov r1, r8
-        ldr r0, address_of_message8   
-        bl printf                    
+	vmul.f32 s15, s11, s14
+	vmul.f32 s16, s15, s30
+	
 
-	mov r1, r10
-        ldr r0, address_of_message9  
-        bl printf
+	vcvt.f64.f32 d0, s11
+	vcvt.f64.f32 d1, s14
+	vcvt.f64.f32 d2, s16
 
-	mov r1, r9
-        ldr r0, address_of_message10   
-        bl printf 
+	ldr r0, =message8
+	vmov r2, r3, d0
+	bl printf
+
+	ldr r0, =message9
+	vmov r2, r3, d1
+	bl printf
+
+	ldr r0, =message10
+	vmov r2, r3, d2
+	bl printf
 
         mov r7, #1
         swi 0                        
