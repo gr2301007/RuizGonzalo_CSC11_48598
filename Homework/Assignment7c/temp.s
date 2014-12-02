@@ -45,7 +45,7 @@ main:
      	bl time
      	mov r9, r0
 
-	loopFloat
+	loopFloat:
 	    vsub.f32 s11,s11,s12
 	    vmul.f32 s11,s10,s11
 	    vdiv.f32 s11,s11,s9
