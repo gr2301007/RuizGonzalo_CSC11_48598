@@ -56,6 +56,7 @@
        /*ldr r5, [r1, r4, LSL #2]*/   /* r5 ? *(r1 + r4 * 4) */ 
        /*mov r5, r5, LSL #1 */        /* r5 ? r5 * 2 */ 
        str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
+       add r5, r5, #1
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_array_double: 
        cmp r4, r0                 /* r4 - r0 and update cpsr */ 
