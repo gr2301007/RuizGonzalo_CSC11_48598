@@ -201,10 +201,6 @@ main:
      bl time
      mov r9, r0
 
-     ldr r1, =value1
-     ldr r0, =value2
-     vldr s2, [r1]
-     vldr s3, [r0]
      
         ldr r1, address_of_f1
 	vldr s9,[r1]
