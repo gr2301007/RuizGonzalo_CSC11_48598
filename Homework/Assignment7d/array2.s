@@ -48,7 +48,7 @@
      */ 
      push {r4, r5, r6, lr} 
    
-     mov r4, #2      /* r4 ? 0 */ 
+     mov r4, #32      /* r4 ? 0 */ 
    
      b .Lcheck_loop_array_double 
      .Lloop_array_double: 
