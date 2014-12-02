@@ -27,10 +27,12 @@ main:
 	
 	ldr r1, =value1
 	
-	vldr s2, [r1]
-	vldr s3, [r0]
+	vldr s4, [r1]
+	vldr d1, [r0]
 
-	vmul.f32 s4, s2, s3
+	vcvt.f32.f64 s5, d1
+
+	vmul.f32 s6, s4, s5
 
 	vcvt.f64.f32 d0, s4
 	
