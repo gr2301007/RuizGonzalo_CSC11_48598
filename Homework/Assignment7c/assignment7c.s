@@ -6,7 +6,7 @@
 .data
 
 value1: .float 0.55556    /*Temperature problem: 5/9 */
-value2: .float 68.0       /* fahrenheit: 100 - 32 = 68
+value2: .float 68.0       /* fahrenheit: 100 - 32 = 68 */
    
 message: .asciz "Fahrenheit = 100\n"
 message1: .asciz "Enter fahrenheit (32 - 212): "
