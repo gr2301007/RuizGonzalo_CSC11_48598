@@ -48,12 +48,12 @@
      */ 
      push {r4, r5, r6, lr} 
    
-     mov r4, #32      /* r4 ? 0 */ 
+     mov r4, #0      /* r4 ? 0 */ 
    
      b .Lcheck_loop_array_double 
      .Lloop_array_double: 
        ldr r5, [r1, r4, LSL #2]   /* r5 ? *(r1 + r4 * 4) */ 
-       mov r5, r5, LSL #1         /* r5 ? r5 * 2 */ 
+       /*mov r5, r5, LSL #1 */        /* r5 ? r5 * 2 */ 
        str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_array_double: 
