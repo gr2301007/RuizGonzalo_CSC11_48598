@@ -195,15 +195,7 @@ main:
      ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-
-     ldr r7, =0x989680           /*Number of loops*/
-     
-     mov r0, #0 
-     bl time
-     mov r9, r0
-
-     
-        ldr r1, address_of_f1
+	ldr r1, address_of_f1
 	vldr s9,[r1]
 
 	ldr r0, address_of_message
@@ -232,20 +224,6 @@ main:
 	ldr  r0,address_of_message11
 	vmov r2,r3,d7
 	bl printf
-
-     mov r5, r0
-     mov r0, #0 
-     bl time
-     mov r4, r0
-     sub r6, r4, r9
-
-     ldr r0, =message11
-     vmov r2, r3, d0
-     bl printf
-     
-     mov r1, r6
-     ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
-     bl printf                    /* Call printf */
 
      b drag
 
