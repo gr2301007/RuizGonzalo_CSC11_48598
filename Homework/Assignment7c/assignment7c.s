@@ -5,8 +5,12 @@
 
 .data
 
-value1: .float 0.55556    /*Temperature problem: 5/9 */
-value2: .float 68.0       /* fahrenheit: 100 - 32 = 68 */
+
+f1:.float 9
+f2:.float 5
+f3:.float 32
+f: .word 0
+
 value3: .float 1.0        /* Half */
 value4: .float 0.00237    /* Rho */
 value5: .float 3.1416     /* Pi */
@@ -16,7 +20,7 @@ value8: .float 200.0      /* Velocity */
 value9: .float 6.0        /* Radius */
  
    
-message: .asciz "Fahrenheit = 100\n"
+message: .asciz "Enter fahrenheit (32 - 212) as float: "
 message1: .asciz "Enter fahrenheit (32 - 212): "
 message2: .asciz "Enter 32 - 212 only: "
 message3: .asciz "Celsius(DivMod) = %d\n"
@@ -28,7 +32,7 @@ message8: .asciz "\nInteger Dynamic Pressure = %d (lbs)\n"
 message9: .asciz "Cross Sectional Area x 32 = %d (ft^2)\n"
 message10: .asciz "Integer Drag x 32 = %d (lbs)\n"
 message11: .asciz "\nCelsius(Float multiplication) = %f\n"
-format:   .asciz "%d" 
+format:   .asciz "%f" 
 format2:   .asciz "%d %d"
   
 .text
@@ -115,15 +119,20 @@ divMod:
 .global main
 
 main: 
-    
-     ldr r0, address_of_message  /* Set &message1 as the first parameter of printf */ 
+
+     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
+     sub sp, sp, #8               /* Make room for two 4 byte integer in the stack */
+     
+     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
      loop4:
-     
+     ldr r0, address_of_format    /* Set format as the first parameter of scanf */ 
+     mov r1, sp                   /* Set the top of the stack as the second parameter*/ 
+     bl scanf                     /* Call scanf */ 
    
-     mov r0, #100		  /* Load the integer read by scanf into r0 */ 
-
+     ldr r0, [sp]		  /* Load the integer read by scanf into r0 */ 
+   
      cmp r0, #32
      blt invalid
 
@@ -197,12 +206,35 @@ main:
      vldr s2, [r1]
      vldr s3, [r0]
      
-     loopFloat:
-        vmul.f32 s4, s2, s3
-	vcvt.f64.f32 d0, s4
-        sub r7, r7, #1
-        cmp r7, #0
-        bne loopFloat
+        ldr r1, address_of_f1
+	vldr s9,[r1]
+
+	ldr r0, address_of_message
+	bl printf
+
+
+	ldr r1,address_of_f2
+	vldr s10,[r1]
+
+	
+	ldr r0,address_of_format
+	ldr r1,address_of_f
+	bl scanf
+
+	ldr r1,address_of_f
+	vldr s11,[r1]
+	
+	ldr r1,address_of_f3
+	vldr s12,[r1]
+
+	vsub.f32 s11,s11,s12
+	vmul.f32 s11,s10,s11
+	vdiv.f32 s11,s11,s9
+
+	vcvt.f64.f32 d7,s11
+	ldr  r0,address_of_message11
+	vmov r2,r3,d7
+	bl printf
 
      mov r5, r0
      mov r0, #0 
@@ -277,10 +309,15 @@ main:
 	vmov r2, r3, d2
 	bl printf
 
-        mov r7, #1
-        swi 0                        
-   
-address_of_value1:   .word value1
+        add sp, sp, #8               
+        ldr lr, [sp], #+4            
+        bx lr  
+
+                    
+address_of_f:.word f
+address_of_f1:.word f1
+address_of_f2:.word f2
+address_of_f3:.word f3
 
 address_of_message: .word message 
 address_of_message1: .word message1 
