@@ -13,6 +13,10 @@ format:   .asciz "%f"
 
 .global main
 main:
+
+	ldr r0, =message1  /* Set &message1 as the first parameter of printf */ 
+        bl printf                    /* Call printf */ 
+
 	
 	ldr r1, =value1
 	ldr r0, =value2
