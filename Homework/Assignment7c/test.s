@@ -5,7 +5,7 @@
 
 value1: .float 0.55556
 value2: .float 68.0
-message1: .asciz "Enter fahrenheit (32 - 212): "
+message1: .asciz "Fahrenheit = 100\n"
 message11: .asciz "\nCelsius(Float multiplication) = %f\n"
 format:   .asciz "%f" 
 
@@ -16,23 +16,16 @@ main:
 	str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
         sub sp, sp, #8               /* Make room for two 4 byte integer in the stack */
 
-	ldr r0, =message1  /* Set &message1 as the first parameter of printf */ 
+	ldr r0, =message1         /* Set &message1 as the first parameter of printf */ 
         bl printf                    /* Call printf */ 
 
-	ldr r0, =format              /* Set format as the first parameter of scanf */ 
-        mov r1, sp                   /* Set the top of the stack as the second parameter*/ 
-        bl scanf                     /* Call scanf */ 
-   
-        ldr r0, [sp]		  /* Load the integer read by scanf into r0 */  
 	
-	ldr r1, =value1
-	
-	vldr s4, [r1]
-	vldr d1, [r0]
+        ldr r1, =value1
+	ldr r2, =value2
+	vldr s2, [r1]
+	vldr s3, [r0]
 
-	vcvt.f32.f64 s5, d1
-
-	vmul.f32 s6, s4, s5
+	vmul.f32 s4, s2, s3
 
 	vcvt.f64.f32 d0, s4
 	
