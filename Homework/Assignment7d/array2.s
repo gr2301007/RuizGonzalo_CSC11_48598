@@ -29,10 +29,8 @@
    
      b .Lcheck_loop_array_double 
      .Lloop_array_double: 
-       /*ldr r5, [r1, r4, LSL #2]*/   /* r5 ? *(r1 + r4 * 4) */ 
-       /*mov r5, r5, LSL #1 */        /* r5 ? r5 * 2 */ 
        str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
-       add r5, r5, #1
+       add r5, r5, #5
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_array_double: 
        cmp r4, r0                 /* r4 - r0 and update cpsr */ 
@@ -74,12 +72,12 @@
      /* we will not use r4 but we need to keep the function 8-byte aligned */ 
  	 
      /* call to double_array */ 
-     mov r0, #181                   /* first_parameter: number of items */ 
+     mov r0, #36                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl double_array               /* call to double_array */ 
    
      /* second call print_each_item */ 
-     mov r0, #181                   /* first_parameter: number of items */ 
+     mov r0, #36                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl print_each_item             /* call to print_each_item */ 
    
