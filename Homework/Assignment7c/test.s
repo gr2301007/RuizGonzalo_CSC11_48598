@@ -16,11 +16,8 @@ main:
 	str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
         sub sp, sp, #8               /* Make room for two 4 byte integer in the stack */
 
-	ldr r0, =message1         /* Set &message1 as the first parameter of printf */ 
-        bl printf                    /* Call printf */ 
 
-	
-        ldr r1, =value1
+	ldr r1, =value1
 	ldr r0, =value2
 	vldr s2, [r1]
 	vldr s3, [r0]
