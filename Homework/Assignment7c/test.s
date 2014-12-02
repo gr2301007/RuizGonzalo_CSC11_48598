@@ -21,7 +21,7 @@ main:
 
 	
         ldr r1, =value1
-	ldr r2, =value2
+	ldr r0, =value2
 	vldr s2, [r1]
 	vldr s3, [r0]
 
