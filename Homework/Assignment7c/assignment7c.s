@@ -8,7 +8,7 @@
 value1: .float 0.55556    /*Temperature problem: 5/9 */
 value2: .float 68.0       /* fahrenheit: 100 - 32 = 68
    
-message0: .asciz "Fahrenheit = 100\n"
+message: .asciz "Fahrenheit = 100\n"
 message1: .asciz "Enter fahrenheit (32 - 212): "
 message2: .asciz "Enter 32 - 212 only: "
 message3: .asciz "Celsius(DivMod) = %d\n"
@@ -108,7 +108,7 @@ divMod:
 
 main: 
     
-     ldr r0, address_of_message0  /* Set &message1 as the first parameter of printf */ 
+     ldr r0, address_of_message  /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
      loop4:
@@ -252,7 +252,7 @@ main:
    
 address_of_value1:   .word value1
 
-address_of_message0: .word message0 
+address_of_message: .word message 
 address_of_message1: .word message1 
 address_of_message2: .word message2 
 address_of_message3: .word message3
