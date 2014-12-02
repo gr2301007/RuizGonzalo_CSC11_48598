@@ -49,7 +49,7 @@
      push {r4, lr} 
      /* we will not use r4 but we need to keep the function 8-byte aligned */ 
    
-     mov r0, #256 
+     mov r0, #255
      ldr r1, address_of_big_array 
    
      bl sum_array_ref 
