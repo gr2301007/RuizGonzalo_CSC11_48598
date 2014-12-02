@@ -96,22 +96,22 @@
      /* we will not use r4 but we need to keep the function 8-byte aligned */ 
  	 
  	/* first call print_each_item */ 
-     mov r0, #256                   /* first_parameter: number of items */ 
+     mov r0, #10                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl init_array                  /* call to print_each_item */ 
    
      /* first call print_each_item */ 
-     mov r0, #256                   /* first_parameter: number of items */ 
+     mov r0, #10                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl print_each_item             /* call to print_each_item */ 
    
      /* call to double_array */ 
-     mov r0, #256                   /* first_parameter: number of items */ 
+     mov r0, #10                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl double_array               /* call to double_array */ 
    
      /* second call print_each_item */ 
-     mov r0, #256                   /* first_parameter: number of items */ 
+     mov r0, #10                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl print_each_item             /* call to print_each_item */ 
    
