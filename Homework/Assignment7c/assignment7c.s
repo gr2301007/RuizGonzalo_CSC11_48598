@@ -8,6 +8,7 @@
 value1: .float 0.55556    /*Temperature problem: 5/9 */
 value2: .float 68.0       /* fahrenheit: 100 - 32 = 68
    
+message0: .asciz "Fahrenheit = 100\n"
 message1: .asciz "Enter fahrenheit (32 - 212): "
 message2: .asciz "Enter 32 - 212 only: "
 message3: .asciz "Celsius(DivMod) = %d\n"
@@ -106,19 +107,14 @@ divMod:
 .global main
 
 main: 
-     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
-     sub sp, sp, #8               /* Make room for two 4 byte integer in the stack */ 
-     
- 	 
-     ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+    
+     ldr r0, address_of_message0  /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
      loop4:
-     ldr r0, address_of_format    /* Set format as the first parameter of scanf */ 
-     mov r1, sp                   /* Set the top of the stack as the second parameter*/ 
-     bl scanf                     /* Call scanf */ 
+     
    
-     ldr r0, [sp]		  /* Load the integer read by scanf into r0 */ 
+     mov r0, #100		  /* Load the integer read by scanf into r0 */ 
 
      cmp r0, #32
      blt invalid
@@ -181,25 +177,18 @@ main:
      ldr r0, address_of_message5  /* Set &message5 as the first parameter of printf */ 
      bl printf                    /* Call printf */
 
-	mov r0, r8
+     ldr r1, =value1
+	ldr r0, =value2
+	vldr s2, [r1]
+	vldr s3, [r0]
 
-     
-	ldr r1, =value1
-	/*sub r2, r0, #32 */
-	vldr s14, [r1]		/* vldr s0, [r2] */
-	/*vldr s1, [r1]*/
+	vmul.f32 s4, s2, s3
 
-	vcvt.f64.f32 d5, s14
+	vcvt.f64.f32 d0, s4
 	
-
-        /*vmul.f32 s2, s0, s1
-	vcvt.f64.f32 d2, s2
-	vmov r2, r3, d5*/
-
-         
-     ldr r0, =message11  
-     vmov r2, r3, d5 
-     bl printf                 
+	ldr r0, =message11
+	vmov r2, r3, d0
+	bl printf
      
      b drag
 
@@ -258,12 +247,12 @@ main:
         ldr r0, address_of_message10   
         bl printf 
 
-       add sp, sp, #8               
-       ldr lr, [sp], #+4            
-       bx lr                        
+        mov r7, #1
+        swi 0                        
    
 address_of_value1:   .word value1
 
+address_of_message0: .word message0 
 address_of_message1: .word message1 
 address_of_message2: .word message2 
 address_of_message3: .word message3
