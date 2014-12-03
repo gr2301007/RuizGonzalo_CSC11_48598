@@ -132,3 +132,4 @@ float_array :
  address_of_array : .word array
 address_of_float_array : .word f_array 
  address_of_message : .word message 
+address_of_message1 : .word message1
