@@ -5,14 +5,20 @@
  
  .data 
 
+value1: .float 32
 
 .align 4 
  array : 
  .skip 148 
 
+.align 4 
+ f_array : 
+ .skip 148 
+
 
 .align 4 
- message: .asciz "fahrenheit = %d, celsius(int) = %d\n" 
+message: .asciz "fahrenheit = %d, celsius(int) = %d " 
+
  
    
  .text 
@@ -37,6 +43,29 @@
      .Lcheck_loop_array: 
        cmp r4, r0                 /* r4 - r0 and update cpsr */ 
        bne .Lloop_array    /* if r4 != r0 go to .Lloop_array_double */ 
+   
+     pop {r4, r5, r6, lr} 
+   
+     bx lr 
+
+float_array :  
+     /* Parameters:  
+            r0  Number of items 
+            r1  Address of the array 
+     */ 
+     push {r4, r5, r6, lr} 
+   
+     mov r4, #0      /* r4 ? 0 */ 
+     ldr r5, =value1
+   
+     b .Lcheck_loop_float_array 
+     .Lloop_float_array: 
+       str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
+       
+       add r4, r4, #1             /* r4 ? r4 + 1 */ 
+     .Lcheck_loop_float_array: 
+       cmp r4, r0                 /* r4 - r0 and update cpsr */ 
+       bne .Lloop_float_array    /* if r4 != r0 go to .Lloop_array_double */ 
    
      pop {r4, r5, r6, lr} 
    
@@ -81,6 +110,10 @@
      mov r0, #37                   /* first_parameter: number of items */ 
      ldr r1, address_of_array   /* second parameter: address of the array */ 
      bl fill_array               /* call to double_array */ 
+
+     mov r0, #37                   /* first_parameter: number of items */ 
+     ldr r1, address_of_f_array   /* second parameter: address of the array */ 
+     bl float_array   
    
      /* second call print_each_item */ 
      mov r0, #37                   /* first_parameter: number of items */ 
@@ -90,6 +123,7 @@
      pop {r4, lr} 
      bx lr 
    
- address_of_array : .word array
+address_of_array : .word array
+address_of_f_array : .word f_array
 address_of_message : .word message 
 
