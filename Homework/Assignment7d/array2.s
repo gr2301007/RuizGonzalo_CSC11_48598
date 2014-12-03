@@ -135,7 +135,7 @@ float_array :
      mov r0, #37                   /* first_parameter: number of items */ 
      ldr r1, address_of_array   /* second parameter: address of the array */
      ldr r2, address_of_f_array
-     bl print_each_item             /* call to print_each_item */ 
+     /*bl print_each_item*/             /* call to print_each_item */ 
    
      pop {r4, lr} 
      bx lr 
