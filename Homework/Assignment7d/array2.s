@@ -11,11 +11,11 @@ value3: .float 0.55556
 
 .align 4 
  array : 
- .skip 148 
+ .skip 152 
 
 .align 4 
  f_array : 
- .skip 148 
+ .skip 152 
 
 
 .align 4 
@@ -66,9 +66,9 @@ float_array :
      .Lloop_float_array: 
        str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */
 
-       /*vldr s14, [r5]
+       vldr s14, [r5]
        vadd.f32 s14, s14, s15
-       vmov r6, s14*/
+       vmov r6, s14
        
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_float_array: 
