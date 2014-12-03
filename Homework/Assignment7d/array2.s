@@ -8,10 +8,10 @@
    
  .align 4 
  big_array : 
- .skip 724 
+ .skip 148 
    
  .align 4 
- message: .asciz "Item at position %d has value %d\n" 
+ message: .asciz "fahrenheit = %d, celsius = %d\n" 
    
  .text 
  .globl main 
@@ -45,16 +45,21 @@
    
      mov r4, #0      /* r4 ? 0 */ 
      mov r6, r0      /* r6 ? r0. Keep r0 because we will overwrite it */ 
-     mov r7, r1      /* r7 ? r1. Keep r1 because we will overwrite it */ 
+     mov r7, r1      /* r7 ? r1. Keep r1 because we will overwrite it */
+     ldr r8, =0x8e38f 
    
    
      b .Lcheck_loop_print_items 
      .Lloop_print_items: 
-       ldr r5, [r7, r4, LSL #2]   /* r5 ? *(r7 + r4 * 4) */ 
+       ldr r5, [r7, r4, LSL #2]   /* r5 ? *(r7 + r4 * 4) */
+       mov r10, r5 
+       sub r9, r5, #32
+       mul r5, r9, r8
+       mov r5, r5, ASR #20	
    
        /* Prepare the call to printf */ 
        ldr r0, address_of_message /* first parameter of the call to printf below */ 
-       mov r1, r4      /* second parameter: item position */ 
+       mov r1, r10      /* second parameter: item position */ 
        mov r2, r5      /* third parameter: item value */ 
        bl printf       /* call printf */ 
    
@@ -72,12 +77,12 @@
      /* we will not use r4 but we need to keep the function 8-byte aligned */ 
  	 
      /* call to double_array */ 
-     mov r0, #36                   /* first_parameter: number of items */ 
+     mov r0, #37                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl double_array               /* call to double_array */ 
    
      /* second call print_each_item */ 
-     mov r0, #36                   /* first_parameter: number of items */ 
+     mov r0, #37                   /* first_parameter: number of items */ 
      ldr r1, address_of_big_array   /* second parameter: address of the array */ 
      bl print_each_item             /* call to print_each_item */ 
    
