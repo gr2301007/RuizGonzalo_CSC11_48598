@@ -5,8 +5,11 @@
  
  .data 
 
+.align
 value1: .float 32
+.align
 value2: .float 5
+.align
 value3: .float 0.55556
 
    
