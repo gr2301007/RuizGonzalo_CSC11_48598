@@ -20,6 +20,7 @@ value1: .float 32
 message: .asciz "fahrenheit = %d, celsius(int) = %d " 
 
 
+
 .text 
  .globl main 
  
@@ -76,6 +77,7 @@ float_array :
      mov r4, #0      /* r4 ? 0 */ 
      mov r6, r0      /* r6 ? r0. Keep r0 because we will overwrite it */ 
      mov r7, r1      /* r7 ? r1. Keep r1 because we will overwrite it */
+     mov r11, r2     /* r11 ? r2. Keep r2 because we will overwrite it */
      ldr r8, =0x8e38f 
    
    
@@ -93,7 +95,7 @@ float_array :
        mov r2, r5      /* third parameter: item value */ 
        bl printf       /* call printf */ 
 
-       ldr r5, [r2, r4, LSL #2]
+       ldr r5, [r11, r4, LSL #2]
        vldr s14, [r5]
        vcvt.f64.f32 d5, s14
 
