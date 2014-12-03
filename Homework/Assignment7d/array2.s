@@ -109,7 +109,7 @@ float_array :
 
        ldr r0, address_of_message1 /* first parameter of the call to printf below */ 
        vmov r2, r3, d5
-       bl printf       /* call printf */ 
+       /*bl printf*/       /* call printf */ 
 
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_print_items: 
