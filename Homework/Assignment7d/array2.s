@@ -68,7 +68,7 @@ float_array :
 
        vldr s14, [r5]
        vadd.f32 s14, s14, s15
-       vmov r6, s14
+       vmov r5, s14
        
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_float_array: 
