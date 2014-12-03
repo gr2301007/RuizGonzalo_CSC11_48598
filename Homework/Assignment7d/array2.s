@@ -66,10 +66,9 @@ float_array :
      .Lloop_float_array: 
        str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */
 
-       vldr s14, [r5]
+       vldr s14, [r6]
        vadd.f32 s14, s14, s15
        vmov r6, s14
-       mov r5, r6
        
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_float_array: 
