@@ -5,26 +5,15 @@
  
  .data 
 
-.align
-value1: .float 32
-.align
-value2: .float 5
-.align
-value3: .float 0.55556
 
-   
- .align 4 
+.align 4 
  array : 
  .skip 148 
 
- .align 4 
- f_array : 
- .skip 148 
-   
- .align 4 
- message: .asciz "fahrenheit = %d, celsius(int) = %d, " 
- .align 4
- message1: .asciz "float = %f\n" 
+
+.align 4 
+ message: .asciz "fahrenheit = %d, celsius(int) = %d\n" 
+ 
    
  .text 
  .globl main 
@@ -53,29 +42,6 @@ value3: .float 0.55556
    
      bx lr 
 
-float_array :  
-     /* Parameters:  
-            r0  Number of items 
-            r1  Address of the array 
-     */ 
-     push {r4, r5, r6, lr} 
-   
-     mov r4, #0      /* r4 ? 0 */ 
-     ldr r5, =value1
-   
-     b .Lcheck_loop_float_array 
-     .Lloop_float_array: 
-       str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
-       
-       add r4, r4, #1             /* r4 ? r4 + 1 */ 
-     .Lcheck_loop_float_array: 
-       cmp r4, r0                 /* r4 - r0 and update cpsr */ 
-       bne .Lloop_float_array    /* if r4 != r0 go to .Lloop_array_double */ 
-   
-     pop {r4, r5, r6, lr} 
-   
-     bx lr 
-   
  print_each_item: 
      push {r4, r5, r6, r7, r8, lr} /* r8 is unused */ 
    
@@ -99,15 +65,7 @@ float_array :
        mov r2, r5      /* third parameter: item value */ 
        bl printf       /* call printf */ 
 
-       ldr r5, [r2, r4, LSL #2]
-       vldr s14, [r5]
-       vcvt.f64.f32 d5, s14
-
-       ldr r0, address_of_message1 /* first parameter of the call to printf below */ 
-	
-       vmov r2, r3, d5
-       bl printf       /* call printf */ 
-   
+       
        str r5, [r7, r4, LSL #2]   /* *(r7 + r4 * 4) ? r5 */ 
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_print_items: 
@@ -127,13 +85,11 @@ float_array :
      /* second call print_each_item */ 
      mov r0, #37                   /* first_parameter: number of items */ 
      ldr r1, address_of_array   /* second parameter: address of the array */ 
-     ldr r2, address_of_float_array
      bl print_each_item             /* call to print_each_item */ 
    
      pop {r4, lr} 
      bx lr 
    
  address_of_array : .word array
-address_of_float_array : .word f_array 
- address_of_message : .word message 
-address_of_message1 : .word message1
+address_of_message : .word message 
+
