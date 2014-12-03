@@ -20,6 +20,7 @@ value3: .float 0.55556
    
  .align 4 
  message: .asciz "fahrenheit = %d, celsius(int) = %d, " 
+ .align 4
  message1: .asciz "float = %f\n" 
    
  .text 
