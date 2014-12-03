@@ -6,6 +6,8 @@
  .data 
 
 value1: .float 32
+value2: .float 5
+value3: .float 0.55556
 
 .align 4 
  array : 
@@ -19,7 +21,6 @@ value1: .float 32
 .align 4 
 message: .asciz "fahrenheit = %d, celsius(int) = %d " 
 message1: .asciz "float = %f\n" 
-
 
 
 .text 
@@ -58,10 +59,16 @@ float_array :
    
      mov r4, #0      /* r4 ? 0 */ 
      ldr r5, =value1
+     ldr r6, =value2
+     vldr s15, [r6]
    
      b .Lcheck_loop_float_array 
      .Lloop_float_array: 
-       str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
+       str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */
+
+       vldr s14, [r5]
+       vadd.f32 s14, s14, s15
+       vmov r5, s14
        
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_float_array: 
