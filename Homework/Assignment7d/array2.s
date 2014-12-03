@@ -1,23 +1,27 @@
 /*  
- 	How to pass large amounts of data into a function,  
- 	i.e. an Array.  Of course, Pass by Reference!!! 
- 	 
-	Think In Geek Article 17!!! 
- */ 
+    Gonzalo Ruiz
+    Assignment7d
+ */
+ 
  .data 
    
  .align 4 
- big_array : 
+ array : 
+ .skip 148 
+
+ .align 4 
+ float_array : 
  .skip 148 
    
  .align 4 
- message: .asciz "fahrenheit = %d, celsius = %d\n" 
+ message: .asciz "fahrenheit = %d, celsius(int) = %d\n" 
+ message1: .asciz "float = %f\n" 
    
  .text 
  .globl main 
  
  
- double_array :  
+ fill_array :  
      /* Parameters:  
             r0  Number of items 
             r1  Address of the array 
@@ -27,14 +31,37 @@
      mov r4, #0      /* r4 ? 0 */ 
      mov r5, #32
    
-     b .Lcheck_loop_array_double 
-     .Lloop_array_double: 
+     b .Lcheck_loop_array 
+     .Lloop_array: 
        str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
        add r5, r5, #5
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
-     .Lcheck_loop_array_double: 
+     .Lcheck_loop_array: 
        cmp r4, r0                 /* r4 - r0 and update cpsr */ 
-       bne .Lloop_array_double    /* if r4 != r0 go to .Lloop_array_double */ 
+       bne .Lloop_array    /* if r4 != r0 go to .Lloop_array_double */ 
+   
+     pop {r4, r5, r6, lr} 
+   
+     bx lr 
+
+float_array :  
+     /* Parameters:  
+            r0  Number of items 
+            r1  Address of the array 
+     */ 
+     push {r4, r5, r6, lr} 
+   
+     mov r4, #0      /* r4 ? 0 */ 
+     mov r5, #32
+   
+     b .Lcheck_loop_float_array 
+     .Lloop_float_array: 
+       str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */ 
+       add r5, r5, #5
+       add r4, r4, #1             /* r4 ? r4 + 1 */ 
+     .Lcheck_loop_float_array: 
+       cmp r4, r0                 /* r4 - r0 and update cpsr */ 
+       bne .Lloop_float_array    /* if r4 != r0 go to .Lloop_array_double */ 
    
      pop {r4, r5, r6, lr} 
    
@@ -74,20 +101,19 @@
    
  main: 
      push {r4, lr} 
-     /* we will not use r4 but we need to keep the function 8-byte aligned */ 
- 	 
-     /* call to double_array */ 
+     
      mov r0, #37                   /* first_parameter: number of items */ 
-     ldr r1, address_of_big_array   /* second parameter: address of the array */ 
-     bl double_array               /* call to double_array */ 
+     ldr r1, address_of_array   /* second parameter: address of the array */ 
+     bl fill_array               /* call to double_array */ 
    
      /* second call print_each_item */ 
      mov r0, #37                   /* first_parameter: number of items */ 
-     ldr r1, address_of_big_array   /* second parameter: address of the array */ 
+     ldr r1, address_of_array   /* second parameter: address of the array */ 
      bl print_each_item             /* call to print_each_item */ 
    
      pop {r4, lr} 
      bx lr 
    
- address_of_big_array : .word big_array 
+ address_of_array : .word array
+address_of_float_array : .word float_array 
  address_of_message : .word message 
