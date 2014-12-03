@@ -64,7 +64,7 @@ float_array :
    
      b .Lcheck_loop_float_array 
      .Lloop_float_array: 
-       str r5, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */
+       str r6, [r1, r4, LSL #2]   /* *(r1 + r4 * 4) ? r5 */
 
        vldr s14, [r5]
        vadd.f32 s14, s14, s15
@@ -135,7 +135,7 @@ float_array :
      mov r0, #37                   /* first_parameter: number of items */ 
      ldr r1, address_of_array   /* second parameter: address of the array */
      ldr r2, address_of_f_array
-     /*bl print_each_item*/             /* call to print_each_item */ 
+     bl print_each_item             /* call to print_each_item */ 
    
      pop {r4, lr} 
      bx lr 
