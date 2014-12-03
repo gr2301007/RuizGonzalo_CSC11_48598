@@ -10,7 +10,7 @@
  .skip 148 
 
  .align 4 
- float_array : 
+ f_array : 
  .skip 148 
    
  .align 4 
@@ -115,5 +115,5 @@ float_array :
      bx lr 
    
  address_of_array : .word array
-address_of_float_array : .word float_array 
+address_of_float_array : .word f_array 
  address_of_message : .word message 
