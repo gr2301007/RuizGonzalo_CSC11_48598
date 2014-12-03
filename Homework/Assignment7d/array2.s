@@ -18,6 +18,7 @@ value1: .float 32
 
 .align 4 
 message: .asciz "fahrenheit = %d, celsius(int) = %d " 
+message1: .asciz "float = %f\n" 
 
  
    
@@ -94,6 +95,13 @@ float_array :
        mov r2, r5      /* third parameter: item value */ 
        bl printf       /* call printf */ 
 
+       ldr r5, [r2, r4, LSL #2]
+       vldr s14, [r5]
+       vcvt.f64.f32 d5, s14
+
+       ldr r0, address_of_message1 /* first parameter of the call to printf below */ 
+       vmov r2, r3, d5
+       bl printf       /* call printf */ 
        
        str r5, [r7, r4, LSL #2]   /* *(r7 + r4 * 4) ? r5 */ 
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
@@ -117,7 +125,8 @@ float_array :
    
      /* second call print_each_item */ 
      mov r0, #37                   /* first_parameter: number of items */ 
-     ldr r1, address_of_array   /* second parameter: address of the array */ 
+     ldr r1, address_of_array   /* second parameter: address of the array */
+     ldr r2, address_of_f_array
      bl print_each_item             /* call to print_each_item */ 
    
      pop {r4, lr} 
@@ -125,5 +134,6 @@ float_array :
    
 address_of_array : .word array
 address_of_f_array : .word f_array
-address_of_message : .word message 
+address_of_message : .word message
+address_of_message1 : .word message1
 
