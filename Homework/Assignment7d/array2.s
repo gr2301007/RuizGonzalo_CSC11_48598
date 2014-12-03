@@ -103,13 +103,13 @@ float_array :
        mov r2, r5      /* third parameter: item value */ 
        bl printf       /* call printf */ 
 
-       ldr r5, [r11, r4, LSL #2]
+       /*ldr r5, [r11, r4, LSL #2]
        vldr s14, [r5]
-       vcvt.f64.f32 d5, s14
+       vcvt.f64.f32 d5, s14*/
 
        ldr r0, address_of_message1 /* first parameter of the call to printf below */ 
        vmov r2, r3, d5
-       /*bl printf*/       /* call printf */ 
+       /*bl printf */      /* call printf */ 
 
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_print_items: 
