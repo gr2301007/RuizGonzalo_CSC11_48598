@@ -13,8 +13,7 @@
 
 
 .align 4 
-message: .asciz "fahrenheit = %d, celsius(int) = %d " 
-message1: .asciz "float = %f\n" 
+message: .asciz "fahrenheit = %d, celsius(int) = %d\n" 
 
 
 .text 
@@ -94,5 +93,5 @@ print_each_item:
    
 address_of_array : .word array
 address_of_message : .word message
-address_of_message1 : .word message1
+
 
