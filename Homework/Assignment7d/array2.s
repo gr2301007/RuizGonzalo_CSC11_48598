@@ -5,6 +5,13 @@
  
  .data 
 
+ .balign 4 
+ f1:.float 32.0 
+.balign 4 
+ f2:.float 5.0 
+ .balign 4 
+ f3:.float 9.0 
+
 
 .align 4 
  array : 
@@ -102,12 +109,27 @@ print_each_item:
 
        ldr r5, [r11, r4, LSL #2]
        vmov s14,r5 
- 
-       vcvt.f64.f32 d5,s14 
-       vmov r2,r3,d5 
-       ldr r0, address_of_message1	
-       bl printf 
 
+       ldr r2,=f1 
+       vldr s0,[r2] 
+ 
+       vsub.f32  s0,s14,s0   @begin convert F to C 
+ 
+       ldr r2,=f2 
+       vldr s4,[r2] 
+       vmul.f32 s0,s4,s0 
+ 
+ 
+       ldr r2,=f3 
+       vldr s6,[r2] 
+       vdiv.f32 s0,s0,s6 
+ 
+ 
+       vcvt.f64.f32 d6,s0 
+       vmov r2,r3,d6 
+       ldr r0, address_of_message1
+       bl printf 
+ 
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_print_items: 
        cmp r4, r6                 /* r4 - r6 and update cpsr */ 
