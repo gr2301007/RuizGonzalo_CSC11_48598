@@ -56,8 +56,8 @@ message1: .asciz "float = %f\n"
      mov r4, #0      /* r4 ? 0 */ 
      mov r5, #32
    
-     b .Lcheck_loop_array 
-     .Lloop_array: 
+     b .Lcheck_loop_f_array 
+     .Lloop_f_array: 
 
        vmov s0, r5
        vcvt.f32.s32 s1,s0 
@@ -67,9 +67,9 @@ message1: .asciz "float = %f\n"
        add r5, r5, #5
 
       add r4, r4, #1             /* r4 ? r4 + 1 */ 
-      .Lcheck_loop_array: 
+      .Lcheck_loop_f_array: 
        cmp r4, r0                 /* r4 - r0 and update cpsr */ 
-       bne .Lloop_array    /* if r4 != r0 go to .Lloop_array_double */ 
+       bne .Lloop_f_array    /* if r4 != r0 go to .Lloop_array_double */ 
    
      pop {r4, r5, r6, lr} 
    
