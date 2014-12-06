@@ -57,19 +57,20 @@ print_each_item:
 
  .globl main 
 main: 
-     push {r4, lr} 
+    str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
+    sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
      ldr r0, =message2
      bl printf 
 
      ldr r0, =format    /* Set &format as the first parameter of scanf */
-     ldr r1, address_of_letter          
+     mov r1, sp                   /* Set the top of the stack as the second parameter */
+                                    /* of scanf */
      bl scanf                     /* Call scanf */
-
-     ldr r4, address_of_letter
-
+     ldr r11, [sp]		    
+     
      ldr r0, address_of_message 
-     mov r1, r4       
+     mov r1, r11       
 
      bl printf
 
@@ -77,8 +78,9 @@ main:
      
      bl print_each_item             /* call to print_each_item */ 
    
-     pop {r4, lr} 
-     bx lr 
+     add sp, sp, #4              /* Discard the integer read by scanf */     
+     ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
+     bx lr   
    
 address_of_word1: .word word1 
 address_of_message : .word message 
