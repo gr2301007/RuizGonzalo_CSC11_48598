@@ -46,7 +46,8 @@ replace_letter:
 
 	replace:
            str r2, [r1, r4, LSL #2]
-	   mov r7, #1  		/* flag letter found*/
+	   
+	   mov r7, #1  		/* flag letter found in word*/
        
         continue:
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
@@ -93,6 +94,9 @@ main:
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
+    mov r4, #5
+
+    loop:
      ldr r0, =message2
      bl printf 
 
@@ -114,6 +118,8 @@ main:
 
      cmp r0, #0
      beq not_found
+     sub r4, r4, #1
+
      b output
 
      not_found:
@@ -123,7 +129,10 @@ main:
      output:
      ldr r0, =cover1       /* first parameter: address of the array */
      bl print_word             /* call to print_word */ 
-   
+
+     cmp r4, #0
+     bne loop
+     
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
      bx lr   
