@@ -52,7 +52,7 @@ main:
      push {r4, lr} 
 
      
-     ldr r0, address_of_big_array   /* first parameter: address of the array */
+     ldr r0, address_of_word1   /* first parameter: address of the array */
      
      bl print_each_item             /* call to print_each_item */ 
    
