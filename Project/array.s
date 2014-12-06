@@ -103,8 +103,8 @@ main:
 
      bl printf
 
-     ldr r0 =word1
-     ldr r1 =cover1
+     ldr r0, =word1
+     ldr r1, =cover1
      mov r2, r11
      bl replace_letter
 
