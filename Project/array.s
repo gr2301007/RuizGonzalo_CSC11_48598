@@ -9,7 +9,7 @@
  .align 4 
  
  
- big_array : 
+ word1: 
  .word 6, 99, 104, 105, 110, 97
  
  .align 4 
@@ -59,5 +59,5 @@ main:
      pop {r4, lr} 
      bx lr 
    
- address_of_big_array : .word big_array 
+ address_of_word1: .word word1 
  address_of_message : .word message 
