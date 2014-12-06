@@ -15,7 +15,7 @@ word1:
  .word 6, 95, 95, 95, 95, 95
  .align 4 
    
-message: .asciz "%d " 
+message: .asciz "%c " 
 message2: .asciz "\n\nPick a letter: "
 message3: .asciz "\nThat letter isn't in the word\n"
 message4: .asciz "You have %d guesses left\n"
