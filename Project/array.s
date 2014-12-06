@@ -112,7 +112,7 @@ main:
      mov r2, r11
      bl replace_letter
 
-     cmp r0, #1
+     cmp r0, #0
      beq not_found
      b output
 
