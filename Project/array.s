@@ -66,10 +66,10 @@ main:
      ldr r1, address_of_letter          
      bl scanf                     /* Call scanf */
 
-     ldr r2, address_of_letter
+     ldr r4, address_of_letter
 
-     ldr r0, address_of_message /* first parameter of the call to printf below */ 
-     mov r1, r2      /* second parameter: item position */ 
+     ldr r0, address_of_message 
+     mov r1, r4       
 
      bl printf
 
