@@ -8,15 +8,21 @@
    
  .align 4 
  
- 
- word1: 
+word1: 
  .word 6, 99, 104, 105, 110, 97
  
  cover1:
  .word 6, 95, 95, 95, 95, 95
  .align 4 
    
- message: .asciz "%c " 
+message: .asciz "%c " 
+message2: .asciz "\n\nPick a letter: "
+message3: .asciz "\nThat letter isn't in the word\n"
+message4: .asciz "You have %d guesses left\n"
+message5: .asciz "\nYou already used that letter\n"
+format:   .asciz " %c" 
+
+letter: word 0
 
  .text 
 
@@ -53,7 +59,20 @@ print_each_item:
 main: 
      push {r4, lr} 
 
-     
+     ldr r0, =message2
+     bl printf 
+
+     ldr r0, =format    /* Set &format as the first parameter of scanf */
+     mov r1, address_of_letter          
+     bl scanf                     /* Call scanf */
+
+     ldr r2, address_of_letter
+
+     ldr r0, address_of_message /* first parameter of the call to printf below */ 
+     mov r1, r2      /* second parameter: item position */ 
+
+     bl printf
+
      ldr r0, =cover1   /* first parameter: address of the array */
      
      bl print_each_item             /* call to print_each_item */ 
@@ -61,5 +80,9 @@ main:
      pop {r4, lr} 
      bx lr 
    
- address_of_word1: .word word1 
- address_of_message : .word message 
+address_of_word1: .word word1 
+address_of_message : .word message 
+address_of_letter : .word letter 
+
+
+
