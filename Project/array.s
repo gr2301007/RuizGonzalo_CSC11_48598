@@ -16,6 +16,8 @@
    
  message: .asciz "%c " 
 
+ .text 
+
 print_each_item: 
      push {r4, r5, r6, r7, r8, lr} /* r8 is unused */ 
    
@@ -44,11 +46,9 @@ print_each_item:
      pop {r4, r5, r6, r7, r8, lr} 
      bx lr 
    
- .text 
+
  .globl main 
-   
-   
- main: 
+main: 
      push {r4, lr} 
 
      
