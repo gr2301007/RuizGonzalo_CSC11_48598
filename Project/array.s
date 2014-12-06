@@ -26,7 +26,36 @@ letter: .word 0
 
  .text 
 
-print_each_item: 
+replace_letter: 
+     push {r4, r5, r6, r7, r8, lr} 
+   
+     mov r4, #0      /* r4 ? 0 */ 
+     
+     ldr r6, [r0, r4, LSL #2] 
+     mov r4, #1   
+     
+   b .Lcheck_loop_items 
+     .Lloop_items: 
+       ldr r5, [r0, r4, LSL #2]   /* r5 ? *(r7 + r4 * 4) */
+       
+	cmp r2, r5
+	beq replace
+
+        b continue
+
+	replace:
+           str r2, [r1, r4, LSL #2]
+       
+        continue:
+       add r4, r4, #1             /* r4 ? r4 + 1 */ 
+     .Lcheck_loop_items: 
+       cmp r4, r6                 /* r4 - r6 and update cpsr */ 
+       bne .Lloop_items       /* if r4 != r6 goto .Lloop_print_items */ 
+   
+     pop {r4, r5, r6, r7, r8, lr} 
+     bx lr 
+
+print_word: 
      push {r4, r5, r6, r7, r8, lr} /* r8 is unused */ 
    
      mov r4, #0      /* r4 ? 0 */ 
@@ -74,9 +103,14 @@ main:
 
      bl printf
 
-     ldr r0, =cover1   /* first parameter: address of the array */
+     ldr r0 =word1
+     ldr r1 =cover1
+     mov r2, r11
+     bl replace_letter
+
+     ldr r0, =cover1       /* first parameter: address of the array */
      
-     bl print_each_item             /* call to print_each_item */ 
+     bl print_word             /* call to print_word */ 
    
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
