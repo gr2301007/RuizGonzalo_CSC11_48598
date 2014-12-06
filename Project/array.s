@@ -33,6 +33,7 @@ replace_letter:
      
      ldr r6, [r0, r4, LSL #2] 
      mov r4, #1   
+     mov r7, #0
      
    b .Lcheck_loop_items 
      .Lloop_items: 
@@ -45,12 +46,15 @@ replace_letter:
 
 	replace:
            str r2, [r1, r4, LSL #2]
+	   mov r7, #1  		/* flag letter found*/
        
         continue:
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_items: 
        cmp r4, r6                 /* r4 - r6 and update cpsr */ 
        bne .Lloop_items       /* if r4 != r6 goto .Lloop_print_items */ 
+
+     mov r0, r7
    
      pop {r4, r5, r6, r7, r8, lr} 
      bx lr 
@@ -108,8 +112,16 @@ main:
      mov r2, r11
      bl replace_letter
 
+     cmp r0, #1
+     beq not_found
+     b output
+
+     not_found:
+        ldr r0, =message3
+        bl printf 
+
+     output:
      ldr r0, =cover1       /* first parameter: address of the array */
-     
      bl print_word             /* call to print_word */ 
    
      add sp, sp, #4              /* Discard the integer read by scanf */     
