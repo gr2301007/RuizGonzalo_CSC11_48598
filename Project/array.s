@@ -22,7 +22,7 @@ message4: .asciz "You have %d guesses left\n"
 message5: .asciz "\nYou already used that letter\n"
 format:   .asciz " %c" 
 
-letter: word 0
+letter: .word 0
 
  .text 
 
@@ -63,7 +63,7 @@ main:
      bl printf 
 
      ldr r0, =format    /* Set &format as the first parameter of scanf */
-     mov r1, address_of_letter          
+     ldr r1, address_of_letter          
      bl scanf                     /* Call scanf */
 
      ldr r2, address_of_letter
