@@ -64,14 +64,14 @@ replace_letter:
 	cmp r2, r5
 	beq replace
 
-        b continue
+        b continue1
 
 	replace:
            str r2, [r1, r4, LSL #2]
 	   
 	   mov r7, #1  		/* flag letter found in word*/
        
-        continue:
+        continue1:
        add r4, r4, #1             /* r4 ? r4 + 1 */ 
      .Lcheck_loop_items: 
        cmp r4, r6                 /* r4 - r6 and update cpsr */ 
