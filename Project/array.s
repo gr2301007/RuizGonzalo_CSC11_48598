@@ -24,6 +24,7 @@ message6: .asciz "You have 5 tries to guess the word\n"
 message7: .asciz "Sorry you've been hanged\n"
 message8: .asciz "Congratulations you win!\n"
 message9: .asciz "The word was: "
+message10: .asciz "Average of correct letters entered: %f\n"
 format:   .asciz " %c" 
 
 .text 
@@ -70,7 +71,7 @@ replace_letter:
         b continue1
 
 	replace:
-           str r2, [r1, r4, LSL #2]
+           str r2, [r1, r4, LSL #2]  */replace '_' with letter entered by user*/
 	   
 	   mov r7, #1  		/* flag letter found in word*/
        
@@ -121,8 +122,10 @@ main:
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
-    mov r4, #5
+    mov r4, #5			/*size of the word*/
     mov r5, #5			/*guesses left*/
+    mov r6, #0			/*letters entered*/
+    mov r7, #0			/*correct letters entered*/
 
      ldr r0, =message1
      bl printf 
@@ -141,6 +144,7 @@ main:
      ldr r0, =format    /* Set &format as the first parameter of scanf */
      mov r1, sp         /* Set the top of the stack as the second parameter of scanf */
      bl scanf           /* Call scanf */
+     add r6, r6, #1	/* increase number of letters entered by one*/
 
      ldr r11, [sp]		    
      
@@ -155,20 +159,22 @@ main:
      cmp r1, #1
      beq letter_used
 
-     sub r4, r4, #1
+     sub r4, r4, #1	/*decrease size of word by 1*/
+     add r7, r7, #1	/*increase number of correct letters entered by one*/
 
      b test
 
      not_found:
-	sub r5, r5, #1
+	sub r5, r5, #1		/*decrease number of guesses left*/
+        cmp r5, #0
+	beq lose
+
         ldr r0, =message3
         bl printf
 
         ldr r0, =message4
         mov r1, r5
         bl printf
-        cmp r5, #0
-	beq lose
 
      b test
 
@@ -185,12 +191,6 @@ main:
       ldr r0, =message7
         bl printf
 
-      ldr r0, =message9
-        bl printf
-
-      ldr r0, =word1       /* first parameter: address of the array */
-      bl print_word             /* call to print_word */
-
     b end_main
 
     win:
@@ -198,6 +198,25 @@ main:
         bl printf
 
    end_main:
+       vmov s0, r6
+       vcvt.f32.s32 s1,s0 
+
+       vmov s2, r7
+       vcvt.f32.s32 s3,s2
+
+       vdiv.f32 s4,s3,s1
+
+       vcvt.f64.f32 d6,s4 
+       vmov r2,r3,d6 
+       ldr r0, =message10
+       bl printf  
+
+      ldr r0, =message9
+      bl printf
+
+      ldr r0, =word1       /* first parameter: address of the array */
+      bl print_word             /* call to print_word */
+     
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
      bx lr   
