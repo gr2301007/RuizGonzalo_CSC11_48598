@@ -14,16 +14,19 @@ cover1: .word 6, 95, 95, 95, 95, 95
 
 .align 4 
 
-message: .asciz "%c " 
+message: .asciz "%c "
+message1: .asciz "Welcome to hangman...Guess a country name\n"
 message2: .asciz "\n\nPick a letter: "
 message3: .asciz "\nThat letter isn't in the word\n"
 message4: .asciz "You have %d guesses left\n"
 message5: .asciz "\nYou already used that letter\n"
+message6: .asciz "You have 5 tries to guess the word\n"
+message7: .asciz "Sorry you've been hanged\n"
+message8: .asciz "Congratulations you win!\n"
+message9: .asciz "The word was: "
 format:   .asciz " %c" 
 
-letter: .word 0
-
- .text 
+.text 
 
 replace_letter: 
      push {r4, r5, r6, r7, r8, lr} 
@@ -119,15 +122,26 @@ main:
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
     mov r4, #5
+    mov r5, #5			/*guesses left*/
+
+     ldr r0, =message1
+     bl printf 
+
+      ldr r0, =message6
+     bl printf 
 
     loop:
+
+     ldr r0, =cover1       /* first parameter: address of the array */
+     bl print_word             /* call to print_word */
+ 
      ldr r0, =message2
      bl printf 
 
      ldr r0, =format    /* Set &format as the first parameter of scanf */
-     mov r1, sp                   /* Set the top of the stack as the second parameter */
-                                    /* of scanf */
-     bl scanf                     /* Call scanf */
+     mov r1, sp         /* Set the top of the stack as the second parameter of scanf */
+     bl scanf           /* Call scanf */
+
      ldr r11, [sp]		    
      
      ldr r0, =word1
@@ -143,31 +157,45 @@ main:
 
      sub r4, r4, #1
 
-     b output
+     b test
 
      not_found:
+	sub r5, r5 #1
         ldr r0, =message3
         bl printf
-     b output
+
+        ldr r0, =message4
+        mov r1, r5
+        bl printf
+        cmp r5, #0
+	beq lose
+
+     b test
 
      letter_used:
         ldr r0, =message5
         bl printf
 
-     output:
-     ldr r0, =cover1       /* first parameter: address of the array */
-     bl print_word             /* call to print_word */ 
-
+    test:
      cmp r4, #0
      bne loop
-     
+     beq win
+
+    lose:
+      ldr r0, =message7
+        bl printf
+
+    b end_main
+
+    win:
+      ldr r0, =message8
+        bl printf
+
+   end_main:
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
      bx lr   
    
 address_of_word1: .word word1 
 address_of_message : .word message 
-address_of_letter : .word letter 
-
-
 
