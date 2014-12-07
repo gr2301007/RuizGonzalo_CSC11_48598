@@ -160,7 +160,7 @@ main:
      b test
 
      not_found:
-	sub r5, r5 #1
+	sub r5, r5, #1
         ldr r0, =message3
         bl printf
 
