@@ -185,6 +185,12 @@ main:
       ldr r0, =message7
         bl printf
 
+      ldr r0, =message9
+        bl printf
+
+      ldr r0, =word1       /* first parameter: address of the array */
+      bl print_word             /* call to print_word */
+
     b end_main
 
     win:
