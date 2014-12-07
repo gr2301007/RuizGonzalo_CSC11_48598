@@ -71,7 +71,7 @@ replace_letter:
         b continue1
 
 	replace:
-           str r2, [r1, r4, LSL #2]  */replace '_' with letter entered by user*/
+           str r2, [r1, r4, LSL #2]  /*replace '_' with letter entered by user*/
 	   
 	   mov r7, #1  		/* flag letter found in word*/
        
