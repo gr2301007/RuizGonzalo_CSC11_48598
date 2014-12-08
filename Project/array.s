@@ -94,6 +94,7 @@ replace_letter:
      mov r4, #1   
      mov r7, #0
      mov r8, #0
+     mov r9, #0
 
     b .Lcheck_letter 
      .Lloop_repeat: 
@@ -128,7 +129,7 @@ replace_letter:
 
 	replace:
            str r2, [r1, r4, LSL #2]  /*replace '_' with letter entered by user*/
-	   
+	   add r9, r9, #1
 	   mov r7, #1  		/* flag letter found in word*/
        
         continue1:
@@ -140,6 +141,7 @@ replace_letter:
     end:
      mov r0, r7
      mov r1, r8
+     mov r2, r9
    
      pop {r4, r5, r6, r7, r8, lr} 
      bx lr 
@@ -250,10 +252,7 @@ main:
     mov r6, #0			/*letters entered*/
     mov r7, #0			/*correct letters entered*/
 
-     ldr r0, =message4
-     mov r1, r4
-     bl printf 
-
+    
      ldr r0, =message1
      bl printf 
 
@@ -286,7 +285,7 @@ main:
      cmp r1, #1
      beq letter_used
 
-     sub r4, r4, #1	/*decrease size of word by 1*/
+     sub r4, r4, r2	/*decrease size of word by number of letters found*/
      add r7, r7, #1	/*increase number of correct letters entered by one*/
 
      b test
