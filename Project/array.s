@@ -285,7 +285,7 @@ main:
      cmp r1, #1
      beq letter_used
 
-     sub r4, r4, r2	/*decrease size of word by number of letters found*/
+     sub r4, r4, #1	/*decrease size of word by number of letters found*/
      add r7, r7, #1	/*increase number of correct letters entered by one*/
 
      b test
