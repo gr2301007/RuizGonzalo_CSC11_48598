@@ -232,10 +232,6 @@ random_word:
     end_rand:
      sub r2, r2, #1
 
-     ldr r0, =message4
-     mov r1, r2
-     bl printf 
-
      pop {lr}
      bx lr
    
@@ -253,6 +249,10 @@ main:
     mov r5, #5			/*guesses left*/
     mov r6, #0			/*letters entered*/
     mov r7, #0			/*correct letters entered*/
+
+     ldr r0, =message4
+     mov r1, r4
+     bl printf 
 
      ldr r0, =message1
      bl printf 
