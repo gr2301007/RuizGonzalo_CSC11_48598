@@ -257,7 +257,7 @@ main:
 
     loop:
 
-     ldr r0, r9                /* first parameter: address of the array */
+     mov r0, r9                /* first parameter: address of the array */
      bl print_word             /* call to print_word */
  
      ldr r0, =message2
@@ -270,8 +270,8 @@ main:
 
      ldr r11, [sp]		    
      
-     ldr r0, r8
-     ldr r1, r9
+     mov r0, r8
+     mov r1, r9
      mov r2, r11
      bl replace_letter
 
