@@ -10,6 +10,17 @@
 word1: .word 6, 99, 104, 105, 110, 97	/* word china (ascii code) */
 cover1: .word 6, 95, 95, 95, 95, 95	/* cover word with '_' (ascii code = 95) */
 
+word2: .word 6, 115, 112, 97, 105, 110	/* word spain (ascii code) */
+cover2: .word 6, 95, 95, 95, 95, 95	
+
+word3: .word 6, 104, 97, 105, 116, 105	/* word haiti (ascii code) */
+cover3: .word 6, 95, 95, 95, 95, 95	
+
+word4: .word 12, 97, 102, 103, 104, 97, 110, 105, 115, 116, 97, 110 /* word afghanistan (ascii code) */
+cover4: .word 12, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95	
+
+word5: .word 8, 100, 101, 110, 109, 97, 114, 107	/* word denmark (ascii code) */
+cover5: .word 8, 95, 95, 95, 95, 95, 95, 95	
 
 .align 4 
 
@@ -27,6 +38,52 @@ message10: .asciz "Average of correct letters entered: %f\n"
 format:   .asciz " %c" 
 
 .text 
+
+scaleRight: 
+ 	push {lr}             
+ 	loop:     
+ 		mov r3,r3,ASR #1
+ 		mov r2,r2,ASR #1 
+ 	cmp r1,r2 
+ 	blt loop 
+ 	pop {lr}
+     bx lr
+  
+addSub: 
+ 	push {lr} 
+ 	loop2: 
+ 		add r0,r0,r3 
+ 		sub r1,r1,r2 
+ 		bl scaleRight 
+ 	cmp r3,#1 
+ 	bge loop2 
+     pop {lr} 
+     bx lr 
+
+scaleLeft: 
+ 	push {lr}  
+ 	loop3:   
+ 		mov r3,r3,LSL #1 
+ 		mov r2,r2,LSL #1 
+ 		cmp r1,r2 
+ 	bge loop3 
+ 	mov r3,r3,ASR #1  
+ 	mov r2,r2,ASR #1   
+ 	pop {lr}  
+     bx lr  
+  
+divMod: 
+ 	push {lr}  
+ 	
+ 	mov r0,#0 
+ 	mov r3,#1 
+ 	cmp r1,r2 
+ 	blt end 
+ 		bl scaleLeft 
+ 		bl addSub 
+ 	end: 
+ 	pop {lr}  
+     bx lr 
 
 replace_letter: 
      push {r4, r5, r6, r7, r8, lr} 
@@ -114,6 +171,68 @@ print_word:
    
      pop {r4, r5, r6, r7, r8, lr} 
      bx lr 
+
+random_word: 
+ 	push {lr}             
+ 	
+	mov r0, #0
+    	bl time
+    	bl srand
+    	bl rand
+    	mov r1, r0, ASR #1
+    	mov r2, #5
+    	bl divMod
+    	add r1, #1
+
+        cmp r1, #1
+    	beq w1
+    	cmp r1, #2
+    	beq w2
+    	cmp r1, #3
+    	beq w3
+    	cmp r1, #4
+    	beq w4
+    	cmp r1, #5
+    	beq w5
+
+    	w1:
+    	ldr r0, =word1
+	ldr r1, =cover1
+	mov r4, #0
+        ldr r2, [r0, r4, LSL #2] 
+    	b end_rand
+    	
+	w2:
+    	ldr r0, =word2
+	ldr r1, =cover2
+	mov r4, #0
+        ldr r2, [r0, r4, LSL #2] 
+    	b end_rand
+    	
+	w3:
+    	ldr r0, =word3
+	ldr r1, =cover3
+	mov r4, #0
+        ldr r2, [r0, r4, LSL #2] 
+    	b end_rand
+    	
+	w4:
+    	ldr r0, =word4
+	ldr r1, =cover4
+	mov r4, #0
+        ldr r2, [r0, r4, LSL #2] 
+    	b end_rand
+    	
+	w5:
+    	ldr r0, =word5
+	ldr r1, =cover5
+	mov r4, #0
+        ldr r2, [r0, r4, LSL #2] 
+
+    end_rand:
+     sub r2, r2, #1
+     pop {lr}
+     bx lr
    
 
  .globl main 
@@ -121,7 +240,11 @@ main:
     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */
 
-    mov r4, #5			/*size of the word*/
+    bl random_word
+
+    mov r8, r0
+    mov r9, r1
+    mov r4, r2			/*size of the word*/
     mov r5, #5			/*guesses left*/
     mov r6, #0			/*letters entered*/
     mov r7, #0			/*correct letters entered*/
@@ -134,8 +257,7 @@ main:
 
     loop:
 
-     ldr r1, =cover1       /* first parameter: address of the array */
-     mov r0, r1
+     ldr r0, r9                /* first parameter: address of the array */
      bl print_word             /* call to print_word */
  
      ldr r0, =message2
@@ -148,8 +270,8 @@ main:
 
      ldr r11, [sp]		    
      
-     ldr r0, =word1
-     ldr r1, =cover1
+     ldr r0, r8
+     ldr r1, r9
      mov r2, r11
      bl replace_letter
 
