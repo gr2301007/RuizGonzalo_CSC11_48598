@@ -41,11 +41,11 @@ format:   .asciz " %c"
 
 scaleRight: 
  	push {lr}             
- 	loop:     
+ 	loop0:     
  		mov r3,r3,ASR #1
  		mov r2,r2,ASR #1 
  	cmp r1,r2 
- 	blt loop 
+ 	blt loop0 
  	pop {lr}
      bx lr
   
@@ -78,10 +78,10 @@ divMod:
  	mov r0,#0 
  	mov r3,#1 
  	cmp r1,r2 
- 	blt end 
+ 	blt end_div 
  		bl scaleLeft 
  		bl addSub 
- 	end: 
+ 	end_div: 
  	pop {lr}  
      bx lr 
 
