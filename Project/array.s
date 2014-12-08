@@ -16,10 +16,10 @@ cover2: .word 6, 95, 95, 95, 95, 95
 word3: .word 6, 104, 97, 105, 116, 105	/* word haiti (ascii code) */
 cover3: .word 6, 95, 95, 95, 95, 95	
 
-word4: .word 12, 97, 102, 103, 104, 97, 110, 105, 115, 116, 97, 110 /* word afghanistan (ascii code) */
+word4: .word 12, 97, 102, 103, 104, 97, 110, 105, 115, 116, 97, 110 /*word afghanistan (ascii code)*/
 cover4: .word 12, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95	
 
-word5: .word 8, 100, 101, 110, 109, 97, 114, 107	/* word denmark (ascii code) */
+word5: .word 8, 100, 101, 110, 109, 97, 114, 107   /* word denmark (ascii code) */
 cover5: .word 8, 95, 95, 95, 95, 95, 95, 95	
 
 .align 4 
@@ -31,11 +31,12 @@ message3: .asciz "\nThat letter isn't in the word\n"
 message4: .asciz "You have %d guesses left\n"
 message5: .asciz "\nYou already used that letter\n"
 message6: .asciz "You have 5 tries to guess the word\n"
-message7: .asciz "Sorry you've been hanged\n"
-message8: .asciz "Congratulations you win!\n"
-message9: .asciz "The word was: "
+message7: .asciz "\nSorry you've been hanged\n"
+message8: .asciz "\nCongratulations you win!\n"
+message9: .asciz "\nThe word was: "
 message10: .asciz "Average of correct letters entered: %f\n"
 format:   .asciz " %c" 
+line:  .asciz "\n"
 
 .text 
 
@@ -339,6 +340,8 @@ main:
 
       mov r0, r8             /* first parameter: address of the array */
       bl print_word             /* call to print_word */
+      ldr r0, =line
+      bl printf
      
      add sp, sp, #4              /* Discard the integer read by scanf */     
      ldr lr, [sp], #+4           /* Pop the top of the stack and put it in lr */ 
