@@ -231,6 +231,11 @@ random_word:
 
     end_rand:
      sub r2, r2, #1
+
+     ldr r0, =message4
+     mov r1, r2
+     bl printf 
+
      pop {lr}
      bx lr
    
@@ -336,7 +341,7 @@ main:
       ldr r0, =message9
       bl printf
 
-      ldr r0, =word1            /* first parameter: address of the array */
+      mov r0, r8             /* first parameter: address of the array */
       bl print_word             /* call to print_word */
      
      add sp, sp, #4              /* Discard the integer read by scanf */     
