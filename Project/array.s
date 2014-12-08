@@ -1,15 +1,14 @@
 /*  
- 	How to pass large amounts of data into a function,  
- 	i.e. an Array.  Of course, Pass by Reference!!! 
- 	 
- 	Think In Geek Article 17!!! 
- */ 
+ 	Gonzalo Ruiz
+	Project 2
+ */
+
  .data 
    
  .align 4 
  
-word1: .word 6, 99, 104, 105, 110, 97
-cover1: .word 6, 95, 95, 95, 95, 95
+word1: .word 6, 99, 104, 105, 110, 97	/* word china (ascii code) */
+cover1: .word 6, 95, 95, 95, 95, 95	/* cover word with '_' (ascii code = 95) */
 
 
 .align 4 
@@ -135,7 +134,8 @@ main:
 
     loop:
 
-     ldr r0, =cover1       /* first parameter: address of the array */
+     ldr r1, =cover1       /* first parameter: address of the array */
+     mov r0, r1
      bl print_word             /* call to print_word */
  
      ldr r0, =message2
@@ -214,7 +214,7 @@ main:
       ldr r0, =message9
       bl printf
 
-      ldr r0, =word1       /* first parameter: address of the array */
+      ldr r0, =word1            /* first parameter: address of the array */
       bl print_word             /* call to print_word */
      
      add sp, sp, #4              /* Discard the integer read by scanf */     
