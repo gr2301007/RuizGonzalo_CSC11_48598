@@ -20,8 +20,8 @@
  .balign 4 
  a:.skip  100 
  .text 
- .global fv 
- fv: 
+ .global main 
+ main: 
  
  
  push {r4,lr} 
