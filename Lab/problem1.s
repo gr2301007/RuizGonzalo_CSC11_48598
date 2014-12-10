@@ -82,12 +82,11 @@ main:
      bl divMod
      add r1, #1
 
+     mov r4, r1
+
      ldr r0, =format            
      bl printf  
-   
-     mov r3, r1
      
- 	 
      ldr r0, =message1            /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
@@ -103,7 +102,7 @@ main:
      ldr r0, =format            
      bl printf
      
-     cmp r2, r3
+     cmp r2, r4
      beq win
 
      b end
