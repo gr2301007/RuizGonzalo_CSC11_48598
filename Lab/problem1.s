@@ -91,9 +91,6 @@ main:
 
      mov r4, r1
 
-     ldr r0, =format
-     bl printf
-   
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
@@ -120,13 +117,11 @@ main:
 	b end
      
      high:
-	sub r5, r5, #1
 	ldr r0, =message5
 	bl printf
 	b test
 
      low:
-	sub r5, r5, #1
 	ldr r0, =message4
 	bl printf
 	
