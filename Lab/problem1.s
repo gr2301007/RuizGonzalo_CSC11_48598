@@ -95,7 +95,7 @@ main:
      bl printf                    /* Call printf */
    
      ldr r0, =format              /* Set format as the first parameter of scanf */ 
-     mov r1, address_of_number                  
+     ldr r1, address_of_number                  
      bl scanf                     /* Call scanf */ 
    
      ldr r1, address_of_number
