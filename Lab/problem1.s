@@ -6,8 +6,8 @@
 
 .data 
    
-message1: .asciz "\nIn problem 1\n\n"
-message2: .asciz "I have a number between 1 and 1000\nCan you guess my number? You will be\ngiven a maximum of 10 guesses.\nPlease type your first guess: "
+message1: .asciz "\nIn problem 1\n"
+message2: .asciz "\nI have a number between 1 and 1000\nCan you guess my number? You will be\ngiven a maximum of 10 guesses.\nPlease type your first guess: "
 
 message3: .asciz "\nCongratulations, You guessed the number!"
 message4: .asciz "Too low. Try again. "
@@ -90,9 +90,7 @@ main:
      mov r5, #10		  /*counter (guesses)*/
 
      mov r4, r1
-     ldr r0, =format            
-     bl printf 
-
+   
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
@@ -103,6 +101,8 @@ main:
    
      ldr r1, address_of_number
      ldr r2, [r1]
+
+     sub r5, r5, #1
 
      cmp r2, r4
      beq win
