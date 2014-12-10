@@ -87,6 +87,7 @@ main:
      mov r2, #1000
      bl divMod
      add r1, #1
+     mov r5, #10		  /*counter (guesses)*/
 
      mov r4, r1
      ldr r0, =format            
@@ -95,6 +96,7 @@ main:
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
+     loop2:
      ldr r0, =format              /* Set format as the first parameter of scanf */ 
      ldr r1, address_of_number                  
      bl scanf                     /* Call scanf */ 
@@ -104,28 +106,50 @@ main:
 
      cmp r2, r4
      beq win
+     bgt high
+     blt low
 
      b end
 
      win:
         ldr r0, =message3
 	bl printf
+	b end
+     
+     high:
+	sub r5, r5, #1
+	ldr r0, =message5
+	bl printf
+	b test
+
+     low:
+	sub r5, r5, #1
+	ldr r0, =message4
+	bl printf
+	
+     test:
+	cmp r5, #0
+	beq lose:
+	b loop2
+
+     lose:
+	ldr r0, =message6
+	bl printf
+	
+     
+     end:
+	
 	ldr r0, =message7
 	bl printf
 
-	ldr r0, =format1             /* Set format as the first parameter of scanf */ 
+        ldr r0, =format1             /* Set format as the first parameter of scanf */ 
         mov r1, sp                   
         bl scanf                     /* Call scanf */ 
         ldr r11, [sp]                 /* Load the character read by scanf into r4 */
 
-        mov r1, r11
-        ldr r0, =format
-	bl printf
-	
-	cmp r11, #121
+        cmp r11, #121
         beq loop 
-     
-     end:
+
      add sp, sp, #4               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave problem1 */ 
