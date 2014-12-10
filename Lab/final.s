@@ -6,8 +6,8 @@
  .balign 4 
  save:.word 0 
   
-.global equation 
- equation: 
+.global main 
+ main: 
    
  push {r4,lr} 
  ldr r5,=0x12b02  @a  20bit >>20 
