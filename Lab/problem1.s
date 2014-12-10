@@ -96,7 +96,7 @@ main:
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
-     loop2:
+     loop_game:
      ldr r0, =format              /* Set format as the first parameter of scanf */ 
      ldr r1, address_of_number                  
      bl scanf                     /* Call scanf */ 
@@ -129,8 +129,8 @@ main:
 	
      test:
 	cmp r5, #0
-	beq lose:
-	b loop2
+	beq lose
+	b loop_game
 
      lose:
 	ldr r0, =message6
