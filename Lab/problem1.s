@@ -99,6 +99,9 @@ main:
      bl scanf                     /* Call scanf */ 
    
      ldr r2, [sp]                 /* Load the integer read by scanf into r2 */ 
+     mov r1, r2
+     ldr r0, =format            
+     bl printf
      
      cmp r2, r3
      beq win
