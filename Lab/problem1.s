@@ -7,14 +7,15 @@
 .data 
    
 message1: .asciz "\nIn problem 1\n\n"
-message2: .asciz "I have a number between 1 and 1000\nCan you guess my number? You will be\ngiven a maximum of 10 guesses.\n Please type your first guess: "
+message2: .asciz "I have a number between 1 and 1000\nCan you guess my number? You will be\ngiven a maximum of 10 guesses.\nPlease type your first guess: "
 
 message3: .asciz "\nCongratulations, You guessed the number!"
 message4: .asciz "Too low. Try again. "
 message5: .asciz "Too high. Try again. "
 message6: .asciz "\nToo many tries."
 message7: .asciz "\nWould you like to play again(y or n)?: "
-format:   .asciz "%d" 
+format:   .asciz "%d"
+format:   .asciz "%c" 
   
 .text 
 
@@ -71,6 +72,7 @@ main:
      str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
      sub sp, sp, #8               /* Make room for two 4 byte integers in the stack */ 
 
+     loop:
      mov r0, #0
      bl time
      bl srand
@@ -79,31 +81,39 @@ main:
      mov r2, #1000
      bl divMod
      add r1, #1
+     mov r3, r1
      
  	 
-     ldr r0, =format              /* Set &message1 as the first parameter of printf */ 
+     ldr r0, =message1            /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
-     ldr r0, address_of_message2  /* Set &message2 as the first parameter of printf */ 
+     ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
      ldr r0, =format              /* Set format as the first parameter of scanf */ 
-     mov r2, sp                   /* Set variable of the stack as rate */ 
-     add r1, r2, #4               /* and second value as hours of scanf */ 
+     mov r1, sp                   
      bl scanf                     /* Call scanf */ 
    
-     add r1, sp, #4               /* Place sp+4 -> r1 */ 
-     ldr r1, [r1]                 /* Load the integer hours read by scanf into r1 */ 
-     ldr r2, [sp]		  /* Load the integer rate read by scanf into r2 */ 
+     ldr r2, [sp]                 /* Load the integer read by scanf into r2 */ 
      
+     cmp r2, r3
+     beq win
+
+     win:
+        ldr r0, =message3
+	bl printf
+	ldr r0, =message7
+	bl printf
+	ldr r0, =format              /* Set format as the first parameter of scanf */ 
+        mov r1, sp                   
+        bl scanf                     /* Call scanf */ 
+        ldr r4, [sp]                 /* Load the character read by scanf into r4 */
+	
+	cmp r4, #121
+        beq loop 
      
      end:
      add sp, sp, #8               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave problem1 */ 
    
-address_of_message1: .word message1 
-address_of_message2: .word message2 
-address_of_message3: .word message3
-address_of_message4: .word message4
-address_of_format:   .word format 
