@@ -16,6 +16,7 @@ message6: .asciz "\nToo many tries."
 message7: .asciz "\nWould you like to play again(y or n)?: "
 format:   .asciz "%d"
 format1:   .asciz " %c" 
+number: .word 0
   
 .text 
 
@@ -71,6 +72,9 @@ divMod:
 main: 
      str lr, [sp,#-4]!            
      sub sp, sp, #4 
+
+     ldr r0, =format            
+     bl printf 
               
      loop:
      mov r0, #0
@@ -84,9 +88,6 @@ main:
 
      mov r4, r1
 
-     ldr r0, =format            
-     bl printf  
-     
      ldr r0, =message1            /* Set &message1 as the first parameter of printf */ 
      bl printf                    /* Call printf */ 
 
@@ -94,11 +95,12 @@ main:
      bl printf                    /* Call printf */
    
      ldr r0, =format              /* Set format as the first parameter of scanf */ 
-     mov r1, sp                   
+     mov r1, address_of_number                  
      bl scanf                     /* Call scanf */ 
    
-     ldr r2, [sp]                 /* Load the integer read by scanf into r2 */ 
-     
+     ldr r1, address_of_number
+     ldr r2, [r1]
+
      cmp r2, r4
      beq win
 
@@ -126,4 +128,6 @@ main:
      add sp, sp, #4               /* Discard the integer read by scanf */ 
      ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
      bx lr                        /* Leave problem1 */ 
+
+address_of_number: .word number
    
