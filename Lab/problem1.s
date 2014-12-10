@@ -113,13 +113,13 @@ main:
 	ldr r0, =format1             /* Set format as the first parameter of scanf */ 
         mov r1, sp                   
         bl scanf                     /* Call scanf */ 
-        ldr r4, [sp]                 /* Load the character read by scanf into r4 */
+        ldr r11, [sp]                 /* Load the character read by scanf into r4 */
 
-        mov r1, r4
+        mov r1, r11
         ldr r0, =format
 	bl printf
 	
-	cmp r4, #121
+	cmp r11, #121
         beq loop 
      
      end:
