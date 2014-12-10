@@ -102,8 +102,6 @@ main:
      ldr r1, address_of_number
      ldr r2, [r1]
 
-     sub r5, r5, #1
-
      cmp r2, r4
      beq win
      bgt high
@@ -126,6 +124,7 @@ main:
 	bl printf
 	
      test:
+	sub r5, r5, #1
 	cmp r5, #0
 	beq lose
 	b loop_game
