@@ -15,7 +15,7 @@ message5: .asciz "Too high. Try again. "
 message6: .asciz "\nToo many tries."
 message7: .asciz "\nWould you like to play again(y or n)?: "
 format:   .asciz "%d"
-format:   .asciz "%c" 
+format1:   .asciz "%c" 
   
 .text 
 
@@ -104,7 +104,7 @@ main:
 	bl printf
 	ldr r0, =message7
 	bl printf
-	ldr r0, =format              /* Set format as the first parameter of scanf */ 
+	ldr r0, =format1              /* Set format as the first parameter of scanf */ 
         mov r1, sp                   
         bl scanf                     /* Call scanf */ 
         ldr r4, [sp]                 /* Load the character read by scanf into r4 */
