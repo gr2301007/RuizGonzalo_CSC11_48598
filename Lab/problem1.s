@@ -75,9 +75,9 @@ main:
      str lr, [sp,#-4]!            
      sub sp, sp, #4 
 
-     ldr r0, =format            
-     bl printf 
-              
+     ldr r0, =message1            /* Set &message1 as the first parameter of printf */ 
+     bl printf                    /* Call printf */ 
+     
      loop:
      mov r0, #0
      bl time
@@ -89,9 +89,8 @@ main:
      add r1, #1
 
      mov r4, r1
-
-     ldr r0, =message1            /* Set &message1 as the first parameter of printf */ 
-     bl printf                    /* Call printf */ 
+     ldr r0, =format            
+     bl printf 
 
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
