@@ -14,6 +14,8 @@ message4: .asciz "Too low. Try again. "
 message5: .asciz "Too high. Try again. "
 message6: .asciz "\nToo many tries."
 message7: .asciz "\nWould you like to play again(y or n)?: "
+
+.balign 4
 format:   .asciz "%d"
 format1:   .asciz " %c" 
 number: .word 0
