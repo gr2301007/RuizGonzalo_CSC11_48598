@@ -81,6 +81,10 @@ main:
      mov r2, #1000
      bl divMod
      add r1, #1
+
+     ldr r0, =format            
+     bl printf  
+   
      mov r3, r1
      
  	 
@@ -98,6 +102,8 @@ main:
      
      cmp r2, r3
      beq win
+
+     b end
 
      win:
         ldr r0, =message3
