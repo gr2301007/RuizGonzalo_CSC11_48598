@@ -90,6 +90,9 @@ main:
      mov r5, #10		  /*counter (guesses)*/
 
      mov r4, r1
+
+     ldr r0, =format
+     bl printf
    
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
