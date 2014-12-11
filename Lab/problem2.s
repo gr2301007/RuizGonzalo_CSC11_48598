@@ -43,7 +43,6 @@ main:
      bl printf 
 
 
-
      ldr r0, =message3            
      bl printf 
      ldr r0, =format1
@@ -52,10 +51,10 @@ main:
      ldr r1, =number
      vldr s2, [r1]
 
-     vcvt.f64.f32 d6,s2 
+     /*vcvt.f64.f32 d6,s2 
      vmov r2,r3,d6 
      ldr r0, =format1
-     bl printf 
+     bl printf */
 
 
     ldr r0, =message4            
