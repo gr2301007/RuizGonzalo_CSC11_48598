@@ -50,24 +50,26 @@ main:
      ldr r1, =number     
      bl scanf                      
      ldr r1, =number
-     ldr r5, [r1]
+     vldr s2, [r1]
 
-     ldr r0, =format1 
-     mov r1, r5           
-     bl printf
+     vcvt.f64.f32 d6,s2 
+     vmov r2,r3,d6 
+     ldr r0, =format1
+     bl printf 
 
 
-     ldr r0, =message4            
+    ldr r0, =message4            
      bl printf 
      ldr r0, =format1
      ldr r1, =number     
      bl scanf                      
      ldr r1, =number
-     ldr r6, [r1]
+     vldr s3, [r1]
 
-     ldr r0, =format1 
-     mov r1, r6           
-     bl printf
+     vcvt.f64.f32 d6,s3 
+     vmov r2,r3,d6 
+     ldr r0, =format1
+     bl printf 
 	
      
      end:
