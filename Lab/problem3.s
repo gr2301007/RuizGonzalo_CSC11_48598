@@ -49,9 +49,9 @@ main:
      mov r5, #10
 
      loop:
-	vdiv.s32 s4, s2, s3
-	vadd.s32 s3, s3, s4
-	vdiv.s32 s5, s3, s6
+	vdiv.f32 s4, s2, s3
+	vadd.f32 s3, s3, s4
+	vdiv.f32 s5, s3, s6
 	vmov s3, s5
 
 	add r4, r4, #1
