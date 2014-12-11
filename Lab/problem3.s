@@ -8,7 +8,7 @@
    
 message1: .asciz "\nIn problem 3\n"
 message2: .asciz "\nEnter a number (1 - 10000): "
-message3: .asciz "\nSquare Root is: %f"
+message3: .asciz "\nSquare Root is: %f\n"
 
 .balign 4
 number: .word 0
