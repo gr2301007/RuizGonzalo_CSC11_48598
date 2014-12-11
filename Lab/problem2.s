@@ -97,6 +97,25 @@ main:
      .Lcheck_loop_array: 
        cmp r5, r4                 /* r4 - r0 and update cpsr */ 
        bne .Lloop_array    /* if r4 != r0 go to .Lloop_array_double */ 
+
+      ldr r9, =array
+      mov r10, #0
+      
+      b .check_print_array 
+     .print_array: 
+
+	ldr r0,[r9,r10, LSL #2]     @float number in the  array 
+ 	vmov s3,r0               @ready to print out 
+ 	vcvt.f64.f32 d5,s3 
+ 	ldr r0,=message5 
+ 	vmov r2,r3,d5 
+ 	bl printf 
+
+ 	add r10, r10, #1             /* r4 ? r4 + 1 */ 
+
+     .check_print_array: 
+       cmp r10, r4                 /* r4 - r0 and update cpsr */ 
+       bne .print_array    /* if r4 != r0 go to .Lloop_array_double */ 
      
      end:
 	pop {r4, lr}
