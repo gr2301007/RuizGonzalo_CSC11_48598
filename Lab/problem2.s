@@ -10,7 +10,8 @@ message1: .asciz "\nIn problem 2\n"
 message2: .asciz "\nEnter number of years (1-20): "
 message3: .asciz "\nEnter Interest Rate (0.05 - 0.1): "
 message4: .asciz "\nEnter Present Value ($1000 - $5000: "
-message5: .asciz "\nFuture Value = %f\n"
+message5: .asciz "Future Value for year %d = "
+message6: .asciz "%f\n"
 
 .balign 4
 number: .word 0
@@ -40,11 +41,6 @@ main:
      ldr r1, =number
      ldr r4, [r1]
 
-     ldr r0, =format 
-     mov r1, r4           
-     bl printf 
-
-
      ldr r0, =message3            
      bl printf 
      ldr r0, =format1
@@ -53,24 +49,13 @@ main:
      ldr r1, =number
      vldr s2, [r1]
 
-     vcvt.f64.f32 d6,s2 
-     vmov r2,r3,d6 
-     ldr r0, =format1
-     bl printf
-
-
-    ldr r0, =message4            
+     ldr r0, =message4            
      bl printf 
      ldr r0, =format1
      ldr r1, =number     
      bl scanf                      
      ldr r1, =number
      vldr s3, [r1]
-
-     vcvt.f64.f32 d6,s3 
-     vmov r2,r3,d6 
-     ldr r0, =format1
-     bl printf 
 
      ldr r1, =array
      mov r5, #0
@@ -104,10 +89,15 @@ main:
       b .check_print_array 
      .print_array: 
 
+        ldr r0,=message5 
+ 	mov r1, r10
+	add r1, r1, #1
+ 	bl printf 
+
 	ldr r0,[r9,r10, LSL #2]     @float number in the  array 
  	vmov s3,r0               @ready to print out 
  	vcvt.f64.f32 d5,s3 
- 	ldr r0,=message5 
+ 	ldr r0,=message6 
  	vmov r2,r3,d5 
  	bl printf 
 
