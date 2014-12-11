@@ -16,6 +16,7 @@ message5: .asciz "\nFuture Value for year %d = %f\n"
 format:   .asciz "%d"
 format1:   .asciz "%f" 
 number: .word 0
+numberf: .word 0
 
 .balign 4
 array: .skip 100
@@ -46,9 +47,9 @@ main:
      ldr r0, =message3            
      bl printf 
      ldr r0, =format1
-     ldr r1, =number     
+     ldr r1, =numberf     
      bl scanf                      
-     ldr r1, =number
+     ldr r1, =numberf
      vldr s2, [r1]
 
      /*vcvt.f64.f32 d6,s2 
