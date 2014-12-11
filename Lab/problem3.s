@@ -19,6 +19,8 @@ format:  .asciz "%f"
 .balign 4
 value: .float 600
 
+.balign 4
+value1: .float 2
 
 .text 
 
@@ -38,7 +40,25 @@ main:
      ldr r1, =number
      vldr s2, [r1]
 
-     vcvt.f64.f32 d5,s2 
+     ldr r2, =value
+     vldr s3, [r2]
+     ldr r3, =value1
+     vldr s6, [r3]
+
+     mov r4, #0
+     mov r5, #10
+
+     loop:
+	vdiv.s32 s4, s2, s3
+	vadd.s32 s3, s3, s4
+	vdiv.s32 s5, s3, s6
+	vmov s3, s5
+
+	add r4, r4, #1
+	cmp r4, r5
+	bne loop
+
+     vcvt.f64.f32 d5,s3 
      ldr r0,=message3 
      vmov r2,r3,d5 
      bl printf 
