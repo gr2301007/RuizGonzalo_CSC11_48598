@@ -14,6 +14,8 @@ message4: .asciz "Too low. Try again. "
 message5: .asciz "Too high. Try again. "
 message6: .asciz "\nToo many tries."
 message7: .asciz "\nWould you like to play again(y or n)?: "
+message8: .asciz "\nThe number was: %d\n"
+
 
 .balign 4
 format:   .asciz "%d"
@@ -135,6 +137,9 @@ problem1:
 	
      
      end:
+	ldr r0, =message8
+        mov r1, r4
+	bl printf
 	
 	ldr r0, =message7
 	bl printf
