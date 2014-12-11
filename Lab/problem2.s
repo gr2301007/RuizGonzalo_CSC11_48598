@@ -13,10 +13,12 @@ message4: .asciz "\nEnter Present Value ($1000 - $5000: "
 message5: .asciz "\nFuture Value for year %d = %f\n"
 
 .balign 4
+number: .word 0
+.balign 4
+numberf: .word 0
+
 format:   .asciz "%d"
 format1:   .asciz "%f" 
-number: .word 0
-numberf: .word 0
 
 .balign 4
 array: .skip 100
