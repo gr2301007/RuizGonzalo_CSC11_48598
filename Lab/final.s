@@ -1,55 +1,74 @@
- .data 
- m1:.asciz"We have a function ax^2+bx\n a=0.037;b=0.876.\n please enter the x's value(0,255)\n" 
- m2:.asciz"ax^2+bx= %d \n" 
- format:.asciz"%d" 
- m3:.asciz"out of scale\n" 
- .balign 4 
- save:.word 0 
-  
-.global main 
- main: 
+
+/* 
+   Gonzalo Ruiz
+   Final */
+
+.data 
    
- push {r4,lr} 
- ldr r5,=0x12b02  @a  20bit >>20 
- ldr r6,=0xe04188  @b 24bit >>24 
+message1: .asciz "Type 1 for problem 1\nType 2 for problem 2\nType 3 for problem 3\nType 4 for problem 4\nType 5 to exit: "
+
+format:   .asciz "%d" 
+message2: .asciz "You typed %d to exit the program\n"
+ 
+.text 
+
+Menu: 
+ 	push {lr}
+           
+ 	ldr r0, address_of_message1  /* Set &message1 as the first parameter of printf */ 
+     	bl printf                    /* Call printf */ 
+
+ 	pop {lr}
+        bx lr
   
- loop: 
- ldr r0,=m1 
- bl printf 
-  
- ldr r0,=format 
- ldr r1,=save 
- bl scanf 
-  
- ldr r1,=save 
- ldr r1,[r1]              @r1 is value of x 
- cmp r1,#0 
- bge second 
- ldr r0,=m3 
- bl printf 
- b loop 
-  
- second: 
- cmp r1,#255 
- ble calculate 
- ldr r0,=m3 
- bl printf 
- b loop 
-  
-  
- calculate: 
- mul r2,r5,r1       @ 28bit  >>20   ax 
- mov r2,r2,asr#4    @ 24bit  >>16   ax 
- mul r2,r1,r2       @ 32bit   >>16  ax^2 
- mov r2,r2,asr#1    @31bit   >>15 
-  
- mul r3,r1,r6       @32bit   >>24   bx 
- mov r3,r3,asr#9       @23      >>15 
- add r2,r2,r3        
- mov r1,r2,asr#15 
-  
- ldr r0,=m2 
- bl printf 
-  
- pop {r4,lr} 
- bx lr 
+  	 
+.globl main
+
+main: 
+     str lr, [sp,#-4]!            /* Push lr onto the top of the stack */ 
+     sub sp, sp, #4               /* Make room for one 4 byte integer in the stack */ 
+
+     
+     loop:
+        bl Menu
+
+        ldr r0, address_of_format    /* Set format as the first parameter of scanf */ 
+        mov r1, sp                   /* Set the top of the stack as the second parameter*/ 
+        bl scanf                     /* Call scanf */
+        ldr r0, [sp]		     /* Load the integer read by scanf into r0 */
+
+ 	cmp r0, #1
+	beq one
+	cmp r0, #2
+	beq two
+	cmp r0, #3
+	beq three
+	cmp r0, #4
+	beq four
+	b def
+
+	one:
+	   bl problem1
+	   b loop
+	two:
+	   bl problem2
+	   b loop
+	three:
+	   bl problem3
+	   b loop
+	four:
+	   bl problem4
+	   b loop
+	def:
+	   mov r1, r0
+	   ldr r0, address_of_message2  /* Set &message1 as the first parameter of printf */ 
+     	   bl printf                    /* Call printf */ 
+
+     add sp, sp, #4               /* Discard the integer read by scanf */ 
+     ldr lr, [sp], #+4            /* Pop the top of the stack and put it in lr */ 
+     bx lr                        /* Leave main */ 
+	
+     
+address_of_message1: .word message1 
+address_of_message2: .word message2 
+address_of_format:   .word format 
