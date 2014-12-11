@@ -92,15 +92,7 @@ main:
 	add r8, r8, #1
 	str r6, [r1, r8, LSL #2]
 
- 	ldr r7, [r1, r5, LSL #2]
-	vmov s4, r7
-
-	/*vcvt.f64.f32 d6,s4 
-        vmov r2,r3,d6 
-        ldr r0, =message5
-        bl printf */
-
-       add r5, r5, #1             /* r4 ? r4 + 1 */ 
+ 	add r5, r5, #1             /* r4 ? r4 + 1 */ 
 
      .Lcheck_loop_array: 
        cmp r5, r4                 /* r4 - r0 and update cpsr */ 
