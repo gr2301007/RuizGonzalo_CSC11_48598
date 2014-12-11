@@ -69,9 +69,9 @@ divMod:
      bx lr 
 
 
-.globl main 
+.globl problem1 
 
-main: 
+problem1: 
      str lr, [sp,#-4]!            
      sub sp, sp, #4 
 

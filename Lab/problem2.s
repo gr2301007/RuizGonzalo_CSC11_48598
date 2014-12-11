@@ -25,9 +25,9 @@ array: .skip 100
   
 .text 
 
-.globl main 
+.globl problem2 
 
-main: 
+problem2: 
      push {r4, lr}
 
      ldr r0, =message1            

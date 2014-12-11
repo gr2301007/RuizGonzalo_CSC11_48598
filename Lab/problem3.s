@@ -24,9 +24,9 @@ value1: .float 2
 
 .text 
 
-.globl main 
+.globl problem3 
 
-main: 
+problem3: 
      push {r4, lr}
 
      ldr r0, =message1            

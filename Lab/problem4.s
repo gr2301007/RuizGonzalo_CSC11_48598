@@ -18,9 +18,9 @@ format:  .asciz "%d"
 
 .text 
 
-.globl main 
+.globl problem4 
 
-main: 
+problem4: 
      push {r4, lr}
 
      ldr r0, =message1            
