@@ -87,12 +87,10 @@ problem1:
      mov r2, #1000
      bl divMod
      add r1, #1
-     mov r5, #10		  /*counter (guesses)*/
-
      mov r4, r1
-     ldr r0, =message3
-     bl printf
 
+     mov r5, #10		  /*counter (guesses)*/
+     
      ldr r0, =message2            /* Set &message2 as the first parameter of printf */ 
      bl printf                    /* Call printf */
    
